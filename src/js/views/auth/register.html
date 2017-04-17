@@ -1,6 +1,11 @@
 <div class="row">
   <div class="col-md-6">
     <form ng-submit="auth.register()">
+      <div class="form-group">
+        <label for="base64">Image</label>
+        <input type="file" base64 name="base64" id="base64" ng-model="auth.user.base64">
+      </div>
+
       <div>
         <label>Name</label>
         <input type="text" ng-model="auth.user.name">
