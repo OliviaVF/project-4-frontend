@@ -1,7 +1,71 @@
 <div>
   <div id="pac-container">
-    <input id="pac-input" type="text" placeholder="Search Location" autocomplete ng-model="pylonsNew.pylon.location" class="form-control">
+    <input id="pac-input" type="text" placeholder="Search Location" autocomplete ng-model="pylonsNew.pylon.location" class="form-control" geometry="pylonsNew.pylon.geometry" choose-listing="pylonsNew.chooseListing(place)">
   </div>
 </div>
 
-<add-map></add-map>
+
+<form ng-submit="pylonsNew.search(pylonsNew.search.keyword)">
+  <input type="text" ng-model="pylonsNew.search.location" placeholder="Search Location">
+  <input type="text" ng-model="pylonsNew.search.keyword" placeholder="Search Event">
+  <button>Find</button>
+</form>
+
+
+
+<add-map chosen-location="pylonsNew.pylon.geometry"></add-map>
+
+<div class="col-md-6">
+  <form ng-submit="pylonsNew.create()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input ng-model="pylonsNew.pylon.name" type="text" name="name" value="" required readonly="readonly">
+    </div>
+    <div class="form-group">
+      <label for="category">Select</label>
+      <select name="category" required class="newCategory">
+        <option value="Select Category" selected>Category</option>
+        <option value="Amusement Park">Amusement Park</option>
+        <option value="Aquarium">Aquarium</option>
+        <option value="Art Gallery">Art Gallery</option>
+        <option value="Bar">Bar</option>
+        <option value="Beauty Salon">Beauty Salon</option>
+        <option value="Book Store">Book Store</option>
+        <option value="Cafe">Cafe</option>
+        <option value="Clothing Store">Clothing Store</option>
+        <option value="Dentist">Dentist</option>
+        <option value="Department Store">Department Store</option>
+        <option value="Doctor">Doctor</option>
+        <option value="Electrician">Electrician</option>
+        <option value="Furniture Store">Furniture Store</option>
+        <option value="Jewelry Store">Jewelry Store</option>
+        <option value="Library">Library</option>
+        <option value="Movie Theatre">Movie Theater</option>
+        <option value="Museum">Museum</option>
+        <option value="Pet Store">Pet Store</option>
+        <option value="Restaurant">Restaurant</option>
+        <option value="Shoe Store">Shoe Store</option>
+        <option value="Spa">Spa</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input ng-model="pylonsNew.pylon.address" type="text" name="address" value="" required readonly="readonly">
+    </div>
+    <div class="form-group">
+      <label for="website">Website</label>
+      <input ng-model="pylonsNew.pylon.website" type="text" name="website" value="" required readonly="readonly">
+    </div>
+    <div class="form-group">
+      <label for="tel">Tel Number</label>
+      <input ng-model="pylonsNew.pylon.telephone" type="text" name="tel" value="" required readonly="readonly">
+    </div>
+    <div class="form-group">
+      <label for="comments">Comments</label>
+      <textarea name="comments" id="comments" required class="form-control"></textarea>
+    </div>
+    <input type="hidden" ng-model="pylonsNew.pylon.lat" name="lat" value="">
+    <input type="hidden" ng-model="pylonsNew.pylon.lng" name="lng" value="">
+    <button class="btn addButton">Add</button>
+  </form>
+</div>

@@ -6,26 +6,61 @@ angular
   .controller('PylonsEditCtrl', PylonsEditCtrl);
 
 PylonsIndexCtrl.$inject = ['Pylon'];
-function PylonsIndexCtrl(Pylon) {
+function PylonsIndexCtrl(Pylon, place) {
   const vm = this;
 
-  vm.all = Pylon.query();
+  Pylon.query()
+  .$promise
+  .then((data)=>{
+    vm.all = data;
+    console.log(vm.all[0]);
+  });
+
 }
 
-PylonsNewCtrl.$inject = ['Pylon', 'User', '$state'];
-function PylonsNewCtrl(Pylon, User, $state) {
+PylonsNewCtrl.$inject = ['Pylon', 'User', '$state', '$scope', '$http'];
+function PylonsNewCtrl(Pylon, User, $state, $scope, $http) {
   const vm = this;
   vm.pylon = {};
+  vm.listing = {};
   vm.users = User.query();
 
   function pylonsCreate() {
+    vm.listing.name = vm.pylon.name;
+    vm.listing.website = vm.pylon.website;
+    vm.listing.address = vm.pylon.address;
+    vm.listing.telephone = vm.pylon.telephone;
+    console.log(vm.listing);
     Pylon
-      .save({ pylon: vm.pylon })
+      .save({pylon: vm.pylon }, {listing: vm.listing})
       .$promise
       .then(() => $state.go('pylonsIndex'));
   }
 
   vm.create = pylonsCreate;
+
+  function search(keyword){
+    $http.post('http://localhost:3000/api/events', {
+      keyword
+      }).then((data)=>{
+      console.log(data.data.events);
+    });
+    vm.search = search;
+  }
+
+
+  function chooseListing(place) {
+    vm.pylon.name = place.name;
+    vm.pylon.website = place.website;
+    vm.pylon.address = place.formatted_address;
+    vm.pylon.telephone = place.formatted_phone_number;
+    vm.pylon.google_place_id = place.place_id;
+    $scope.$apply();
+
+  }
+
+  vm.chooseListing = chooseListing;
+
 }
 
 PylonsShowCtrl.$inject = ['Pylon', 'User', '$stateParams', '$state', '$auth'];

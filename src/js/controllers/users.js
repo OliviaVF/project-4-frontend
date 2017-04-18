@@ -38,7 +38,7 @@ function UsersEditCtrl(User, $stateParams, $state) {
   function usersUpdate() {
     // wrap the data in a `bird` object and pass the bird's id
     // to the model so it can generate the correct URL
-    User.update({ id: vm.bird.id, user: vm.user})
+    User.update({ id: vm.user.id, user: vm.user})
       .$promise
       .then(() => $state.go('usersShow', $stateParams));
   }
