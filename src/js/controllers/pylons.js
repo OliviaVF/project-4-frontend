@@ -2,19 +2,33 @@ angular
   .module('project-4-api')
   .controller('PylonsIndexCtrl', PylonsIndexCtrl)
   .controller('PylonsNewCtrl', PylonsNewCtrl)
-  .controller('PylonsShowCtrl', PylonsShowCtrl)
   .controller('PylonsEditCtrl', PylonsEditCtrl);
 
-PylonsIndexCtrl.$inject = ['Pylon'];
-function PylonsIndexCtrl(Pylon, place) {
+PylonsIndexCtrl.$inject = ['Pylon', 'User', '$stateParams', '$state', '$auth'];
+function PylonsIndexCtrl(Pylon, User, $stateParams, $state, $auth) {
   const vm = this;
+  if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
 
   Pylon.query()
   .$promise
   .then((data)=>{
     vm.all = data;
-    console.log(vm.all[0]);
   });
+
+  //vm.pylon = Pylon.get($stateParams);
+
+
+  function pylonsDelete(pylon) {
+      pylon
+      .$remove()
+      .then(() =>{
+        const index = vm.all.indexOf(pylon);
+        vm.all.splice(index, 1);
+         $state.go('pylonsIndex');
+       });
+  }
+
+  vm.delete = pylonsDelete;
 
 }
 
@@ -22,15 +36,9 @@ PylonsNewCtrl.$inject = ['Pylon', 'User', '$state', '$scope', '$http', 'API_URL'
 function PylonsNewCtrl(Pylon, User, $state, $scope, $http, API_URL) {
   const vm = this;
   vm.pylon = {};
-  vm.listing = {};
   vm.users = User.query();
 
   function pylonsCreate() {
-    // vm.listing.name = vm.pylon.name;
-    // vm.listing.website = vm.pylon.website;
-    // vm.listing.address = vm.pylon.address;
-    // vm.listing.telephone = vm.pylon.telephone;
-    // console.log(vm.listing);
     Pylon
       .save({ pylon: vm.pylon })
       .$promise
@@ -65,23 +73,6 @@ function PylonsNewCtrl(Pylon, User, $state, $scope, $http, API_URL) {
   }
 
   vm.chooseListing = chooseListing;
-
-}
-
-PylonsShowCtrl.$inject = ['Pylon', 'User', '$stateParams', '$state', '$auth'];
-function PylonsShowCtrl(Pylon, User, $stateParams, $state, $auth) {
-  const vm = this;
-  if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
-
-  vm.pylon = Pylon.get($stateParams);
-
-  function pylonsDelete() {
-    vm.pylon
-      .$remove()
-      .then(() => $state.go('pylonsIndex'));
-  }
-
-  vm.delete = pylonsDelete;
 
 }
 

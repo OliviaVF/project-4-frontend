@@ -2,15 +2,25 @@
 
 <h2>{{ usersShow.user.name }}</h2>
 
-<a ui-sref="usersEdit({ id: usersShow.user.id })" class="btn btn-primary">Edit</a>
-
-<div ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved">
+<div ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id">
+  <a ui-sref="usersEdit({ id: usersShow.user.id })" class="btn btn-primary">Edit</a>
   <button ng-click="usersShow.delete()" class="btn btn-danger">Delete</button>
+</div>
 
+<div ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id !== usersShow.user.id">
   <button ng-click="usersShow.toggleFollowing()" ng-if="!usersShow.isFollowing()">Follow</button>
   <button ng-click="usersShow.toggleFollowing()" ng-if="usersShow.isFollowing()">Unfollow</button>
 </div>
 
-<ul>
-  <li ng-repeat="follower in usersShow.user.followers">{{ follower.username }}</li>
-</ul>
+<profile-map user-pylons="usersShow.user.pylons" selected-pylon="usersShow.selectedPylon" ng-if="usersShow.user.$resolved"></profile-map>
+
+<div class="row userPylon" ng-show="usersShow.selectedPylon">
+  <div class="infoData">
+    <p><span>Name: </span> {{ usersShow.selectedPylon.listing.name }}</p>
+    <p><span>Category: </span> {{ usersShow.selectedPylon.category }}</p>
+  </div>
+  <div class="infoBtn">
+    <button ng-click="usersShow.deletePylon()" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="subNavBtn btn">Delete</button>
+    <a ui-sref="pylonsEdit({ id: usersShow.selectedPylon.id })" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="subNavBtn btn">Edit</a>
+  </div>
+</div>

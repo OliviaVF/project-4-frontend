@@ -4,20 +4,30 @@ angular
   .controller('UsersShowCtrl', UsersShowCtrl)
   .controller('UsersEditCtrl', UsersEditCtrl);
 
-UsersIndexCtrl.$inject = ['User'];
-function UsersIndexCtrl(User) {
+UsersIndexCtrl.$inject = ['User', '$auth'];
+function UsersIndexCtrl(User, $auth) {
   const vm = this;
+  if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
 
   vm.all = User.query();
 }
 
-UsersShowCtrl.$inject = ['User', '$stateParams', '$state', '$auth'];
-function UsersShowCtrl(User, $stateParams, $state, $auth) {
+UsersShowCtrl.$inject = ['User', 'Pylon', '$stateParams', '$state', '$auth'];
+function UsersShowCtrl(User, Pylon, $stateParams, $state, $auth) {
   const vm = this;
 
   if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
 
-  vm.user = User.get($stateParams);
+
+  User.get($stateParams, (user)=>{
+    vm.user = user;
+
+    function isFollowing() {
+      return vm.user.$resolved && vm.user.follower_ids.includes(vm.currentUser.id);
+    }
+    vm.isFollowing = isFollowing;
+
+  });
 
   function usersDelete() {
 
@@ -30,9 +40,21 @@ function UsersShowCtrl(User, $stateParams, $state, $auth) {
   }
   vm.delete = usersDelete;
 
+  function deletePylon() {
+    Pylon
+      .delete({ id: vm.selectedPylon.id })
+      .$promise
+      .then(() => {
+        const index = vm.user.pylon.indexOf(vm.selectedPylon);
+        if(index > -1) vm.user.pylon.splice(index, 1);
+        vm.selectedPylon = null;
+      });
+  }
+
+  vm.deletePylon = deletePylon;
+
   function toggleFollowing() {
     const index = vm.user.follower_ids.indexOf(vm.currentUser.id);
-    console.log(index);
     if (index > -1) {
       vm.user.follower_ids.splice(index,1);
     } else {
@@ -46,11 +68,6 @@ function UsersShowCtrl(User, $stateParams, $state, $auth) {
 
   vm.toggleFollowing = toggleFollowing;
 
-  function isFollowing() {
-    return vm.user.$resolved && vm.user.follower_ids.includes(vm.currentUser.id);
-  }
-
-  vm.isFollowing = isFollowing;
 }
 
 UsersEditCtrl.$inject = ['User', '$stateParams', '$state'];

@@ -1,7 +1,24 @@
-<div class="row">
+<button ng-click="showFollowers=true; showFollowing=false; showUsers=false">Followers</button>
+<button ng-click="showFollowing=true; showFollowers=false; showUsers=false">Following</button>
+<button ng-click="showUsers=true; showFollowers=false; showFollowing=false">All Users</button>
+
+<div ng-show="showFollowers" class="row">
+  <div ng-repeat="follower in usersIndex.currentUser.followers" class="col-md-6">
+    <img ng-src="{{ follower.image_src }}">
+    <a ui-sref="usersShow({ id: user.id })"><h2>{{ follower.username }}</h2></a>
+  </div>
+</div>
+
+<div ng-show="showFollowing" class="row">
+  <div ng-repeat="following in usersIndex.currentUser.following" class="col-md-6">
+    <img ng-src="{{ following.image_src }}">
+    <a ui-sref="usersShow({ id: user.id })"><h2>{{ following.username }}</h2></a>
+  </div>
+</div>
+
+<div ng-show="showUsers" class="row">
   <div ng-repeat="user in usersIndex.all" class="col-md-6">
     <img ng-src="{{ user.image_src }}">
-
     <a ui-sref="usersShow({ id: user.id })"><h2>{{ user.username }}</h2></a>
   </div>
 </div>

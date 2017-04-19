@@ -95,11 +95,6 @@ function autocomplete($window) {
         $scope.geometry = place.geometry.location.toJSON();
         model.$setViewValue(element.val());
         $scope.chooseListing({ place });
-
-        console.log(place);
-
-
-
      });
    }
  };

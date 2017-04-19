@@ -1,6 +1,21 @@
 <div class="row">
   <div ng-repeat="pylon in pylonsIndex.all" class="col-md-6">
-    <p>"{{ pylon.listing.name }}"</p>
 
+    <pylon-map pylon="pylon"></pylon-map>
+
+    <p>{{ pylon.listing.name }}</p>
+    <p>{{ pylon.category }}</p>
+    <p>{{ pylon.listing.address }}</p>
+    <p>{{ pylon.listing.website }}</p>
+    <p>{{ pylon.listing.tel }}</p>
+    <p>{{ pylon.comment }}</p>
+
+
+    <button ui-sref="pylonsEdit({id: pylon.id})" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Edit</button>
+    <button ng-click="pylonsIndex.delete(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Delete</button>
   </div>
+
+  <!-- <div ng-if="main.isAuthenticated() && main.currentUser.id === pylonsIndex.pylon.user.id"> -->
+
+
 </div>
