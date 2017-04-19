@@ -19,31 +19,11 @@
       <label for="name">Name</label>
       <input ng-model="pylonsNew.pylon.name" type="text" name="name" value="" required readonly="readonly">
     </div>
-    <div class="form-group">
-      <label for="category">Select</label>
-      <select name="category" required class="newCategory" ng-model="pylonsNew.pylon.category">
-        <option value="Select Category" selected>Category</option>
-        <option value="Amusement Park">Amusement Park</option>
-        <option value="Aquarium">Aquarium</option>
-        <option value="Art Gallery">Art Gallery</option>
-        <option value="Bar">Bar</option>
-        <option value="Beauty Salon">Beauty Salon</option>
-        <option value="Book Store">Book Store</option>
-        <option value="Cafe">Cafe</option>
-        <option value="Clothing Store">Clothing Store</option>
-        <option value="Dentist">Dentist</option>
-        <option value="Department Store">Department Store</option>
-        <option value="Doctor">Doctor</option>
-        <option value="Electrician">Electrician</option>
-        <option value="Furniture Store">Furniture Store</option>
-        <option value="Jewelry Store">Jewelry Store</option>
-        <option value="Library">Library</option>
-        <option value="Movie Theatre">Movie Theater</option>
-        <option value="Museum">Museum</option>
-        <option value="Pet Store">Pet Store</option>
-        <option value="Restaurant">Restaurant</option>
-        <option value="Shoe Store">Shoe Store</option>
-        <option value="Spa">Spa</option>
+    <div>
+      <label>Category</label>
+      <select ng-model="pylonsNew.pylon.category_id">
+        <option disabled selected value="">Please select...</option>
+        <option ng-repeat="category in pylonsNew.categories" ng-value="{{ category.id }}"> {{ category.name }}</option>
       </select>
     </div>
     <div class="form-group">

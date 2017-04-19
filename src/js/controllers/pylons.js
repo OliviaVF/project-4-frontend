@@ -32,9 +32,10 @@ function PylonsIndexCtrl(Pylon, User, $stateParams, $state, $auth) {
 
 }
 
-PylonsNewCtrl.$inject = ['Pylon', 'User', '$state', '$scope', '$http', 'API_URL'];
-function PylonsNewCtrl(Pylon, User, $state, $scope, $http, API_URL) {
+PylonsNewCtrl.$inject = ['Category', 'Pylon', 'User', '$state', '$scope', '$http', 'API_URL'];
+function PylonsNewCtrl(Category, Pylon, User, $state, $scope, $http, API_URL) {
   const vm = this;
+  vm.categories = Category.query();
   vm.pylon = {};
   vm.users = User.query();
 
@@ -76,13 +77,15 @@ function PylonsNewCtrl(Pylon, User, $state, $scope, $http, API_URL) {
 
 }
 
-PylonsEditCtrl.$inject = ['Pylon', 'User', '$stateParams', '$state'];
-function PylonsEditCtrl(Pylon, User, $stateParams, $state) {
+PylonsEditCtrl.$inject = ['Pylon', 'User', '$stateParams', '$state', 'Category'];
+function PylonsEditCtrl(Pylon, User, $stateParams, $state, Category) {
   const vm = this;
 
   Pylon.get($stateParams).$promise.then((pylon) => {
     vm.pylon = pylon;
   });
+
+  vm.categories = Category.query();
 
   vm.users = User.query();
 
