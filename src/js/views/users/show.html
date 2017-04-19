@@ -3,4 +3,14 @@
 <h2>{{ usersShow.user.name }}</h2>
 
 <a ui-sref="usersEdit({ id: usersShow.user.id })" class="btn btn-primary">Edit</a>
-<button ng-click="usersShow.delete()" class="btn btn-danger">Delete</button>
+
+<div ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved">
+  <button ng-click="usersShow.delete()" class="btn btn-danger">Delete</button>
+
+  <button ng-click="usersShow.toggleFollowing()" ng-if="!usersShow.isFollowing()">Follow</button>
+  <button ng-click="usersShow.toggleFollowing()" ng-if="usersShow.isFollowing()">Unfollow</button>
+</div>
+
+<ul>
+  <li ng-repeat="follower in usersShow.user.followers">{{ follower.username }}</li>
+</ul>

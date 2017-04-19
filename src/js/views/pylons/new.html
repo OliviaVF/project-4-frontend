@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
       <label for="category">Select</label>
-      <select name="category" required class="newCategory">
+      <select name="category" required class="newCategory" ng-model="pylonsNew.pylon.category">
         <option value="Select Category" selected>Category</option>
         <option value="Amusement Park">Amusement Park</option>
         <option value="Aquarium">Aquarium</option>
@@ -58,11 +58,11 @@
     </div>
     <div class="form-group">
       <label for="tel">Tel Number</label>
-      <input ng-model="pylonsNew.pylon.telephone" type="text" name="tel" value="" required readonly="readonly">
+      <input ng-model="pylonsNew.pylon.tel" type="text" name="tel" value="" required readonly="readonly">
     </div>
     <div class="form-group">
       <label for="comments">Comments</label>
-      <textarea name="comments" id="comments" required class="form-control"></textarea>
+      <textarea name="comments" id="comments" required class="form-control" ng-model="pylonsNew.pylon.comment"></textarea>
     </div>
     <input type="hidden" ng-model="pylonsNew.pylon.lat" name="lat" value="">
     <input type="hidden" ng-model="pylonsNew.pylon.lng" name="lng" value="">

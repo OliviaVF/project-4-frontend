@@ -18,29 +18,29 @@ function PylonsIndexCtrl(Pylon, place) {
 
 }
 
-PylonsNewCtrl.$inject = ['Pylon', 'User', '$state', '$scope', '$http'];
-function PylonsNewCtrl(Pylon, User, $state, $scope, $http) {
+PylonsNewCtrl.$inject = ['Pylon', 'User', '$state', '$scope', '$http', 'API_URL'];
+function PylonsNewCtrl(Pylon, User, $state, $scope, $http, API_URL) {
   const vm = this;
   vm.pylon = {};
   vm.listing = {};
   vm.users = User.query();
 
   function pylonsCreate() {
-    vm.listing.name = vm.pylon.name;
-    vm.listing.website = vm.pylon.website;
-    vm.listing.address = vm.pylon.address;
-    vm.listing.telephone = vm.pylon.telephone;
-    console.log(vm.listing);
+    // vm.listing.name = vm.pylon.name;
+    // vm.listing.website = vm.pylon.website;
+    // vm.listing.address = vm.pylon.address;
+    // vm.listing.telephone = vm.pylon.telephone;
+    // console.log(vm.listing);
     Pylon
-      .save({pylon: vm.pylon }, {listing: vm.listing})
+      .save({ pylon: vm.pylon })
       .$promise
       .then(() => $state.go('pylonsIndex'));
   }
 
   vm.create = pylonsCreate;
 
-  function search(keyword){
-    $http.post('http://localhost:3000/api/events', {
+  function search(keyword)  {
+    $http.post(`${API_URL}/events`, {
       keyword
       }).then((data)=>{
       console.log(data.data.events);
@@ -50,11 +50,16 @@ function PylonsNewCtrl(Pylon, User, $state, $scope, $http) {
 
 
   function chooseListing(place) {
+    const location = place.geometry.location.toJSON();
     vm.pylon.name = place.name;
     vm.pylon.website = place.website;
     vm.pylon.address = place.formatted_address;
-    vm.pylon.telephone = place.formatted_phone_number;
+    vm.pylon.tel = place.formatted_phone_number;
     vm.pylon.google_place_id = place.place_id;
+    vm.pylon.lat = location.lat;
+    vm.pylon.lng = location.lng;
+
+
     $scope.$apply();
 
   }

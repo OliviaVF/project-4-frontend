@@ -14,6 +14,9 @@ function UsersIndexCtrl(User) {
 UsersShowCtrl.$inject = ['User', '$stateParams', '$state', '$auth'];
 function UsersShowCtrl(User, $stateParams, $state, $auth) {
   const vm = this;
+
+  if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
+
   vm.user = User.get($stateParams);
 
   function usersDelete() {
@@ -26,8 +29,29 @@ function UsersShowCtrl(User, $stateParams, $state, $auth) {
       });
   }
   vm.delete = usersDelete;
-}
 
+  function toggleFollowing() {
+    const index = vm.user.follower_ids.indexOf(vm.currentUser.id);
+    console.log(index);
+    if (index > -1) {
+      vm.user.follower_ids.splice(index,1);
+    } else {
+      vm.user.follower_ids.push(vm.currentUser.id);
+    }
+
+    User.update({ id: vm.user.id, user: vm.user })
+      .$promise
+      .then(() => $state.reload());
+  }
+
+  vm.toggleFollowing = toggleFollowing;
+
+  function isFollowing() {
+    return vm.user.$resolved && vm.user.follower_ids.includes(vm.currentUser.id);
+  }
+
+  vm.isFollowing = isFollowing;
+}
 
 UsersEditCtrl.$inject = ['User', '$stateParams', '$state'];
 function UsersEditCtrl(User, $stateParams, $state) {
