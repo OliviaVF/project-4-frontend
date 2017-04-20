@@ -10,15 +10,34 @@
 </div>
 
 <div ng-show="showFollowing" class="row">
-  <div ng-repeat="following in usersIndex.currentUser.following" class="col-md-6">
+
+  <div>
+    <div>
+      <input type="text" placeholder="Search" ng-model="usersIndex.q">
+    </div>
+  </div>
+
+  <div ng-repeat="following in usersIndex.currentUser.following | filter:{ username: usersIndex.q }" class="col-md-6">
     <img ng-src="{{ following.image_src }}">
     <a ui-sref="usersShow({ id: following.id })"><h2>{{ following.username }}</h2></a>
   </div>
 </div>
 
 <div ng-show="showUsers" class="row">
-  <div ng-repeat="user in usersIndex.all" class="col-md-6">
+
+  <div>
+    <div>
+      <input type="text" placeholder="Search" ng-model="usersIndex.q">
+    </div>
+  </div>
+
+  <div ng-repeat="user in usersIndex.all | filter:{ username: usersIndex.q }" class="col-md-6">
     <img ng-src="{{ user.image_src }}">
     <a ui-sref="usersShow({ id: user.id })"><h2>{{ user.username }}</h2></a>
+
+    <div ng-if="main.isAuthenticated()">
+      <button ng-click="usersIndex.toggleFollowing(user)" ng-if="!usersIndex.isFollowing(user)">Follow</button>
+      <button ng-click="usersIndex.toggleFollowing(user)" ng-if="usersIndex.isFollowing(user)">Unfollow</button>
+    </div>
   </div>
 </div>

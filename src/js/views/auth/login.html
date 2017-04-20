@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6">
-    <form name="auth.loginForm" ng-submit="auth.login()">
+    <form name="auth.loginForm" ng-submit="auth.login()" novalidate>
       <div>
         <label>Username</label>
         <input type="text" name="username" id="username" ng-model="auth.credentials.username" required>
@@ -11,7 +11,7 @@
 
       <div>
         <label>Password</label>
-        <input type="password" name="password" id="password" ng-model="auth.credentials.password">
+        <input type="password" name="password" id="password" ng-model="auth.credentials.password" required>
         <div class="messages error" ng-messages="auth.loginForm.password.$error" role="alert" ng-show="(auth.loginForm.$submitted || auth.loginForm.password.$touched) && auth.loginForm.password.$invalid">
           <div class="message" ng-message="required">Please enter a value for this field.</div>
         </div>

@@ -4,12 +4,34 @@ angular
   .controller('UsersShowCtrl', UsersShowCtrl)
   .controller('UsersEditCtrl', UsersEditCtrl);
 
-UsersIndexCtrl.$inject = ['User', '$auth'];
-function UsersIndexCtrl(User, $auth) {
+UsersIndexCtrl.$inject = ['User', '$auth', '$scope', '$state'];
+function UsersIndexCtrl(User, $auth, $scope, $state) {
   const vm = this;
   if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
 
   vm.all = User.query();
+
+  function isFollowing(user) {
+    return user.follower_ids.includes(vm.currentUser.id);
+  }
+  vm.isFollowing = isFollowing;
+
+  function toggleFollowing(user) {
+    vm.user = user;
+    const index = vm.user.follower_ids.indexOf(vm.currentUser.id);
+    if (index > -1) {
+      vm.user.follower_ids.splice(index,1);
+    } else {
+      vm.user.follower_ids.push(vm.currentUser.id);
+    }
+
+    User.update({ id: vm.user.id, user: vm.user })
+      .$promise
+      .then((result) => result);
+  }
+
+  vm.toggleFollowing = toggleFollowing;
+
 }
 
 UsersShowCtrl.$inject = ['User', 'Pylon', 'Category', 'filterFilter', '$stateParams', '$state', '$auth', '$scope'];
