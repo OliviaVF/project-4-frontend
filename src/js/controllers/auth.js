@@ -7,15 +7,19 @@ function AuthCtrl(User, $auth, $state) {
   const vm = this;
 
   function register() {
-    $auth.signup(vm.user)
-    .then(() => $state.go('login'));
+    if (vm.registerForm.$valid) {
+      $auth.signup(vm.user)
+      .then(() => $state.go('login'));
+    }  
   }
 
   vm.register = register;
 
   function login() {
-    $auth.login(vm.credentials)
-    .then(() => $state.go('usersIndex'));
+    if (vm.loginForm.$valid) {
+      $auth.login(vm.credentials)
+      .then(() => $state.go('usersIndex'));
+    }
   }
 
   vm.login = login;

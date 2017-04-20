@@ -19,7 +19,7 @@ function MainCtrl($rootScope, $state, $auth) {
     if($auth.getPayload()) vm.currentUser = $auth.getPayload();
   });
 
-  const protectedStates = ['pylonsNew', 'pylonsEdit', 'usersIndex', 'usersShow', 'usersEdit'];
+  const protectedStates = ['pylonsNew', 'pylonsEdit', 'pylonsIndex', 'usersIndex', 'usersShow', 'usersEdit'];
 
   $rootScope.$on('$stateChangeStart', (e, toState) => {
     if((!$auth.isAuthenticated() && protectedStates.includes(toState.name))) {

@@ -12,12 +12,27 @@
   <button ng-click="usersShow.toggleFollowing()" ng-if="usersShow.isFollowing()">Unfollow</button>
 </div>
 
-<profile-map user-pylons="usersShow.user.pylons" selected-pylon="usersShow.selectedPylon" ng-if="usersShow.user.$resolved"></profile-map>
+<button ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id" ng-click="usersShow.getMyPylons()" ng-class="{ 'active': usersShow.filter === 'me' }">Me</button>
+<button ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id" ng-click="usersShow.getOurPylons()" ng-class="{ 'active': usersShow.filter === 'our' }">Me &amp; Friends</button>
+<button ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id" ng-click="usersShow.getAllPylons()" ng-class="{ 'active': usersShow.filter === 'all' }">All Pylons</button>
+
+<div>
+  <label>Category</label>
+  <select ng-model="usersShow.categoryPylon">
+    <option selected value="">All</option>
+    <option ng-repeat="category in usersShow.categories" ng-value="{{ category.id }}"> {{ category.name }}</option>
+  </select>
+</div>
+
+<p>Distance From You: {{usersShow.distance/1000 | number: 2}}KM</p>
+<input type="range" min="1000" max="5000" name="slider" id="slider" ng-model="usersShow.distance" value="2500">
+
+<profile-map filtered-pylons="usersShow.filteredPylons" user-pylons="usersShow.user.pylons" selected-pylon="usersShow.selectedPylon" ng-if="usersShow.user.$resolved"></profile-map>
 
 <div class="row userPylon" ng-show="usersShow.selectedPylon">
   <div class="infoData">
     <p><span>Name: </span> {{ usersShow.selectedPylon.listing.name }}</p>
-    <p><span>Category: </span> {{ usersShow.selectedPylon.category }}</p>
+    <p><span>Category: </span> {{ usersShow.selectedPylon.category.name }}</p>
   </div>
   <div class="infoBtn">
     <button ng-click="usersShow.deletePylon()" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="subNavBtn btn">Delete</button>

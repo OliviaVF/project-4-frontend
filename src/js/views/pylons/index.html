@@ -1,7 +1,10 @@
 <div class="row">
-  <div ng-repeat="pylon in pylonsIndex.all" class="col-md-6">
+  <div ng-repeat="pylon in pylonsIndex.all | orderBy: '-pylon.created_at'" class="col-md-6">
 
     <pylon-map pylon="pylon"></pylon-map>
+
+    <h2>{{ pylon.user.username }}</h2>
+    <img ng-src="{{ pylon.user.image_src }}">
 
     <p>{{ pylon.listing.name }}</p>
     <p>{{ pylon.category.name }}</p>

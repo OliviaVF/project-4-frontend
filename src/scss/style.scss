@@ -4,3 +4,9 @@
   height: 50vh;
   width: 100%;
 }
+
+button {
+  &.active {
+    background-color: pink;
+  }
+}
