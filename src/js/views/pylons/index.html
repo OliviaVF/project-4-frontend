@@ -7,30 +7,32 @@
     <img ng-src="{{ pylon.user.image_src }}">
 
     <p>{{ pylon.listing.name }}</p>
-    <p ng-hide="pylonsIndex.editorEnabled">{{ pylon.category.name }}</p>
-    <button ng-click="pylonsIndex.enableEditor(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Edit Category</button>
-    <p>{{ pylon.listing.address }}</p>
-    <p>{{ pylon.listing.website }}</p>
-    <p>{{ pylon.listing.tel }}</p>
-    <p ng-hide="pylonsIndex.editorEnabled">{{ pylon.comment }}</p>
-    <button ng-click="pylonsIndex.enableEditor(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Edit Comment</button>
+    <p ng-hide="pylonsIndex.categoryEditorEnabled">{{ pylon.category.name }}</p>
 
-    <div ng-show="pylonsIndex.editorEnabled">
-      <select ng-model="pylon.category_id" ng-show="pylonsIndex.editorEnabled">
+    <div ng-show="pylonsIndex.categoryEditorEnabled">
+      <select ng-model="pylon.category_id" ng-show="pylonsIndex.categoryEditorEnabled">
         <option disabled selected value="">Please select...</option>
         <option ng-repeat="category in pylonsIndex.categories" ng-value="{{ category.id }}"> {{ category.name }}</option>
       </select>
-      <button ng-click="pylonsIndex.save(pylon)">Save</button>
+      <button ng-click="pylonsIndex.categorySave(pylon)">Save</button>
       or
-      <button ng-click="pylonsIndex.disableEditor()">Cancel</button>
+      <button ng-click="pylonsIndex.disableCategoryEditor()">Cancel</button>
     </div>
 
-    <div ng-show="pylonsIndex.editorEnabled">
-      <input ng-model="pylon.comment" ng-show="pylonsIndex.editorEnabled">
-      <button ng-click="pylonsIndex.save(pylon)">Save</button>
+    <button ng-click="pylonsIndex.enableCategoryEditor(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Edit Category</button>
+    <p>{{ pylon.listing.address }}</p>
+    <p>{{ pylon.listing.website }}</p>
+    <p>{{ pylon.listing.tel }}</p>
+    <p ng-hide="pylonsIndex.commentEditorEnabled">{{ pylon.comment }}</p>
+
+    <div ng-show="pylonsIndex.commentEditorEnabled">
+      <input ng-model="pylon.comment" ng-show="pylonsIndex.commentEditorEnabled">
+      <button ng-click="pylonsIndex.commentSave(pylon)">Save</button>
       or
-      <button ng-click="pylonsIndex.disableEditor()">Cancel</button>
+      <button ng-click="pylonsIndex.disableCommentEditor()">Cancel</button>
     </div>
+
+    <button ng-click="pylonsIndex.enableCommentEditor(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Edit Comment</button>
 
     <button ng-click="pylonsIndex.delete(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Delete</button>
 

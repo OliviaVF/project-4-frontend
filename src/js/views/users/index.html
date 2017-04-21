@@ -1,9 +1,16 @@
-<button ng-click="showUsers=true; showFollowers=false; showFollowing=false">All Users</button>
-<button ng-click="showFollowing=true; showFollowers=false; showUsers=false">Following</button>
-<button ng-click="showFollowers=true; showFollowing=false; showUsers=false">Followers</button>
+<button ng-click="usersIndex.getAllUsers()" ng-class="{ 'active': usersIndex.filter === 'allUsers' }">All Users</button>
+<button ng-click="usersIndex.getFollowing()" ng-class="{ 'active': usersIndex.filter === 'following' }">Following</button>
+<button ng-click="usersIndex.getFollowers()" ng-class="{ 'active': usersIndex.filter === 'followers' }">Followers</button>
 
-<div ng-show="showFollowers" class="row">
-  <div ng-repeat="follower in usersIndex.currentUser.followers" class="col-md-6">
+<!-- <div ng-show="showFollowers" class="row">
+
+  <div>
+    <div>
+      <input type="text" placeholder="Search" ng-model="usersIndex.q">
+    </div>
+  </div>
+
+  <div ng-repeat="follower in usersIndex.currentUser.following | filter:{ username: usersIndex.q }" class="col-md-6">
     <img ng-src="{{ follower.image_src }}">
     <a ui-sref="usersShow({ id: follower.id })"><h2>{{ follower.username }}</h2></a>
   </div>
@@ -21,9 +28,9 @@
     <img ng-src="{{ following.image_src }}">
     <a ui-sref="usersShow({ id: following.id })"><h2>{{ following.username }}</h2></a>
   </div>
-</div>
+</div> -->
 
-<div ng-show="showUsers" class="row">
+<div ng-if="usersIndex.allUsersRender" class="row">
 
   <div>
     <div>

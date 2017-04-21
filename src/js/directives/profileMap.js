@@ -34,6 +34,7 @@ function profileMap($window) {
       function getLocation() {
         const locationMarker = new $window.google.maps.Marker({
           map: map,
+          icon: '/images/me.png',
           animation: google.maps.Animation.DROP
         });
 
@@ -91,10 +92,17 @@ function profileMap($window) {
         pylonMarkers = removeMarkers(pylonMarkers);
         sortedPylons.forEach((pylonArray) => {
           console.log('number', pylonArray.length);
+
+          const number = pylonArray.length;
+          console.log(number);
+          const pylonImage = number > 10 ? '10-plus.png' : `${number}.png`;
+          console.log(pylonImage);
+
           const marker = new $window.google.maps.Marker({
             position: { lat: parseFloat(pylonArray[0].listing.lat), lng: parseFloat(pylonArray[0].listing.lng) },
             map: map,
-            animation: google.maps.Animation.DROP
+            animation: google.maps.Animation.DROP,
+            icon: `/src/images/${pylonImage}`
           });
 
           pylonMarkers.push(marker);
@@ -123,7 +131,7 @@ function profileMap($window) {
           if (!pushed) sortedPylons.push([pylon]);
 
         });
-        // console.log(sortedPylons);
+
         addPylonMarkers(sortedPylons);
       }
 

@@ -32,6 +32,37 @@ function UsersIndexCtrl(User, $auth, $scope, $state) {
 
   vm.toggleFollowing = toggleFollowing;
 
+  function getAllUsers() {
+    vm.allUsersRender = true;
+    vm.filter = "allUsers";
+    User.query()
+      .$promise
+      .then((users) => {
+        vm.allUsers = users;
+      });
+  }
+
+  function getFollowing() {
+    vm.filter = "following";
+    vm.allUsers = vm.user.followers;
+  }
+  //
+  // function getOurPylons() {
+  //   vm.filter = "our";
+  //   let pylons = [];
+  //   vm.user.following.forEach((user) => {
+  //     user.pylons.forEach((pylon) => {
+  //       pylons.push(pylon);
+  //     });
+  //   });
+  //   vm.allPylons = pylons.concat(vm.user.pylons);
+  //   filterPylons();
+  // }
+
+  vm.getAllUsers = getAllUsers;
+  vm.getMyPylons = getMyPylons;
+  // vm.getOurPylons = getOurPylons;
+
 }
 
 UsersShowCtrl.$inject = ['User', 'Pylon', 'Listing', 'Category', 'filterFilter', '$stateParams', '$state', '$auth', '$scope'];
@@ -45,6 +76,7 @@ function UsersShowCtrl(User, Pylon, Listing, Category, filterFilter, $stateParam
 
   User.get($stateParams, (user)=>{
     vm.user = user;
+    console.log(vm.user);
     vm.allPylons = user.pylons;
     filterPylons();
 

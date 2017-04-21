@@ -28,19 +28,49 @@ function PylonsIndexCtrl(Pylon, User, Category, $stateParams, $state, $auth) {
 
   vm.delete = pylonsDelete;
 
-  function enableEditor() {
-
-    vm.categories = Category.query();
-    console.log(vm.categories);
-    vm.editorEnabled = true;
+  function enableCommentEditor() {
+    vm.commentEditorEnabled = true;
     vm.editableComment = vm.comment;
+  }
+
+  vm.enableCommentEditor = enableCommentEditor;
+
+  function disableCommentEditor() {
+    vm.commentEditorEnabled = false;
+    vm.editableComment = vm.comment;
+  }
+
+  vm.disableCommentEditor = disableCommentEditor;
+
+  function enableCategoryEditor() {
+    vm.categories = Category.query();
+    vm.categoryEditorEnabled = true;
     vm.editableCategory = vm.category_id;
   }
 
-  vm.enableEditor = enableEditor;
-  vm.save = save;
-  function save(plon) {
-    vm.pylon = plon;
+  vm.enableCategoryEditor = enableCategoryEditor;
+
+  function disableCategoryEditor() {
+    vm.categories = Category.query();
+    vm.categoryEditorEnabled = false;
+    vm.editableCategory = vm.category_id;
+  }
+
+  vm.disableCategoryEditor = disableCategoryEditor;
+
+  vm.commentSave = commentSave;
+  function commentSave(pylon) {
+    console.log(pylon);
+    vm.pylon = pylon;
+    vm.pylon.category_id = vm.pylon.category.id;
+    Pylon
+      .update({id: vm.pylon.id, pylon: vm.pylon });
+      vm.commentEditorEnabled = false;
+  }
+
+  vm.categorySave = categorySave;
+  function categorySave(pylon) {
+    vm.pylon = pylon;
     const thisCategory = vm.pylon.category_id;
     Pylon
      .update({id: vm.pylon.id, pylon: vm.pylon })
@@ -53,7 +83,7 @@ function PylonsIndexCtrl(Pylon, User, Category, $stateParams, $state, $auth) {
 
        vm.pylon.category.name = filtered[0].name;
        console.log(vm.pylon);
-       vm.editorEnabled = false;
+       vm.categoryEditorEnabled = false;
      });
   }
 }
