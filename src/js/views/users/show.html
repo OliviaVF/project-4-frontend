@@ -27,12 +27,13 @@
 <p>Distance From You: {{usersShow.distance/1000 | number: 2}}KM</p>
 <input type="range" min="1000" max="5000" name="slider" id="slider" ng-model="usersShow.distance" value="2500">
 
-<profile-map filtered-pylons="usersShow.filteredPylons" user-pylons="usersShow.user.pylons" selected-pylon="usersShow.selectedPylon" ng-if="usersShow.user.$resolved"></profile-map>
-
-<div class="row userPylon" ng-show="usersShow.selectedPylon">
-  <div class="infoData">
-    <p><span>Name: </span> {{ usersShow.selectedPylon.listing.name }}</p>
-    <p><span>Category: </span> {{ usersShow.selectedPylon.category.name }}</p>
+<profile-map filtered-pylons="usersShow.filteredPylons" user-pylons="usersShow.user.pylons" selected-listing="usersShow.selectedListing" ng-if="usersShow.user.$resolved"></profile-map>
+<h1>{{ usersShow.listing.name }}</h1>
+<div class="row" ng-show="usersShow.listing">
+  <div class="infoData" ng-repeat="pylon in usersShow.listing.pylons" ng-class="usersShow.determineUser(pylon)">
+    <p><span>Category: </span> {{ pylon.category.name }}</p>
+    <p><span>Comment: </span> {{ pylon.comment }}</p>
+    <p><span>User: </span> {{ pylon.user.username}}</p>
   </div>
   <div class="infoBtn">
     <button ng-click="usersShow.deletePylon()" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="subNavBtn btn">Delete</button>

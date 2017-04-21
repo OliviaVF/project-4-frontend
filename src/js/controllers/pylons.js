@@ -1,21 +1,18 @@
 angular
   .module('project-4-api')
   .controller('PylonsIndexCtrl', PylonsIndexCtrl)
-  .controller('PylonsNewCtrl', PylonsNewCtrl)
-  .controller('PylonsEditCtrl', PylonsEditCtrl);
+  .controller('PylonsNewCtrl', PylonsNewCtrl);
 
-PylonsIndexCtrl.$inject = ['Pylon', 'User', '$stateParams', '$state', '$auth'];
-function PylonsIndexCtrl(Pylon, User, $stateParams, $state, $auth) {
+PylonsIndexCtrl.$inject = ['Pylon', 'User', 'Category', '$stateParams', '$state', '$auth'];
+function PylonsIndexCtrl(Pylon, User, Category, $stateParams, $state, $auth) {
   const vm = this;
   if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
 
-  Pylon.query()
+  Pylon.feed()
   .$promise
   .then((data)=>{
     vm.all = data;
   });
-
-  //vm.pylon = Pylon.get($stateParams);
 
 
   function pylonsDelete(pylon) {
@@ -24,12 +21,41 @@ function PylonsIndexCtrl(Pylon, User, $stateParams, $state, $auth) {
       .then(() =>{
         const index = vm.all.indexOf(pylon);
         vm.all.splice(index, 1);
+        vm.editorEnabled = false;
          $state.go('pylonsIndex');
        });
   }
 
   vm.delete = pylonsDelete;
 
+  function enableEditor() {
+
+    vm.categories = Category.query();
+    console.log(vm.categories);
+    vm.editorEnabled = true;
+    vm.editableComment = vm.comment;
+    vm.editableCategory = vm.category_id;
+  }
+
+  vm.enableEditor = enableEditor;
+  vm.save = save;
+  function save(plon) {
+    vm.pylon = plon;
+    const thisCategory = vm.pylon.category_id;
+    Pylon
+     .update({id: vm.pylon.id, pylon: vm.pylon })
+     .$promise
+     .then(()=>{
+      const filtered = vm.categories.filter((category)=>{
+         return category.id === thisCategory;
+       });
+       console.log(filtered);
+
+       vm.pylon.category.name = filtered[0].name;
+       console.log(vm.pylon);
+       vm.editorEnabled = false;
+     });
+  }
 }
 
 PylonsNewCtrl.$inject = ['Category', 'Pylon', 'User', '$state', '$scope', '$http', 'API_URL'];
@@ -47,15 +73,6 @@ function PylonsNewCtrl(Category, Pylon, User, $state, $scope, $http, API_URL) {
   }
 
   vm.create = pylonsCreate;
-
-  function search(keyword)  {
-    $http.post(`${API_URL}/events`, {
-      keyword
-      }).then((data)=>{
-      console.log(data.data.events);
-    });
-    vm.search = search;
-  }
 
 
   function chooseListing(place) {
@@ -75,26 +92,4 @@ function PylonsNewCtrl(Category, Pylon, User, $state, $scope, $http, API_URL) {
 
   vm.chooseListing = chooseListing;
 
-}
-
-PylonsEditCtrl.$inject = ['Pylon', 'User', '$stateParams', '$state', 'Category'];
-function PylonsEditCtrl(Pylon, User, $stateParams, $state, Category) {
-  const vm = this;
-
-  Pylon.get($stateParams).$promise.then((pylon) => {
-    vm.pylon = pylon;
-  });
-
-  vm.categories = Category.query();
-
-  vm.users = User.query();
-
-  function pylonsUpdate() {
-    Pylon
-      .update({id: vm.pylon.id, pylon: vm.pylon })
-      .$promise
-      .then(() => $state.go('pylonsShow', { id: vm.pylon.id }));
-  }
-
-  vm.update = pylonsUpdate;
 }

@@ -34,8 +34,8 @@ function UsersIndexCtrl(User, $auth, $scope, $state) {
 
 }
 
-UsersShowCtrl.$inject = ['User', 'Pylon', 'Category', 'filterFilter', '$stateParams', '$state', '$auth', '$scope'];
-function UsersShowCtrl(User, Pylon, Category, filterFilter, $stateParams, $state, $auth, $scope) {
+UsersShowCtrl.$inject = ['User', 'Pylon', 'Listing', 'Category', 'filterFilter', '$stateParams', '$state', '$auth', '$scope'];
+function UsersShowCtrl(User, Pylon, Listing, Category, filterFilter, $stateParams, $state, $auth, $scope) {
   const vm = this;
   vm.allPylons = [];
   vm.filter = "me";
@@ -103,8 +103,13 @@ function UsersShowCtrl(User, Pylon, Category, filterFilter, $stateParams, $state
 
   function getAllPylons() {
     vm.filter = "all";
-    vm.allPylons = Pylon.query();
-    filterPylons();
+    Pylon.query()
+      .$promise
+      .then((pylons) => {
+        vm.allPylons = pylons;
+        filterPylons();
+        console.log(pylons);
+      });
   }
 
   function getMyPylons() {
@@ -133,6 +138,39 @@ function UsersShowCtrl(User, Pylon, Category, filterFilter, $stateParams, $state
     () => vm.allPylons.$resolved,
     () => vm.categoryPylon
   ], filterPylons);
+
+  $scope.$watchGroup([
+    () => vm.selectedListing,
+  ], getListing);
+
+  function getListing() {
+    if(vm.selectedListing) vm.listing = Listing.get({id: vm.selectedListing.id });
+  }
+
+  function belongsToFollowing(pylon) {
+    let pylons = [];
+    vm.user.following.forEach((user) => {
+      user.pylons.forEach((pylon) => {
+        pylons.push(pylon);
+      });
+    });
+    return pylons.find((userPylon) => {
+      return userPylon.user.id === pylon.user.id;
+    });
+  }
+
+  function determineUser(pylon) {
+    if (pylon.user.id === vm.currentUser.id) {
+      return "userPylon";
+    } else if (belongsToFollowing(pylon)) {
+      return "followingPylon";
+    } else {
+      return "allPylon";
+    }
+  }
+
+  vm.determineUser = determineUser;
+
 
 }
 

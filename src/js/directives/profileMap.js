@@ -15,7 +15,7 @@ function profileMap($window) {
       center: '=',
       chosenLocation: '=',
       userPylons: '=',
-      selectedPylon: '=',
+      selectedListing: '=',
       filteredPylons: '='
     },
 
@@ -86,11 +86,13 @@ function profileMap($window) {
         return [];
       }
 
-      function addPylonMarkers() {
+      function addPylonMarkers(sortedPylons) {
+        console.log(sortedPylons);
         pylonMarkers = removeMarkers(pylonMarkers);
-        $scope.filteredPylons.forEach((pylon) => {
+        sortedPylons.forEach((pylonArray) => {
+          console.log('number', pylonArray.length);
           const marker = new $window.google.maps.Marker({
-            position: { lat: parseFloat(pylon.listing.lat), lng: parseFloat(pylon.listing.lng) },
+            position: { lat: parseFloat(pylonArray[0].listing.lat), lng: parseFloat(pylonArray[0].listing.lng) },
             map: map,
             animation: google.maps.Animation.DROP
           });
@@ -98,16 +100,35 @@ function profileMap($window) {
           pylonMarkers.push(marker);
 
           google.maps.event.addListener(marker, 'click', function () {
-            $scope.selectedPylon = pylon;
+            $scope.selectedListing = pylonArray[0].listing;
             $scope.$apply();
           });
         });
       }
 
-      addPylonMarkers();
+      function sortPylons() {
+        const sortedPylons = []; // eventually an array of arrays
+        $scope.filteredPylons.forEach((pylon) => {
+          let pushed = false;
+
+          sortedPylons.forEach((pylonArray) => {
+
+            if (pylon.listing.id === pylonArray[0].listing.id) {
+              pylonArray.push(pylon);
+              pushed = true;
+            }
+
+          });
+
+          if (!pushed) sortedPylons.push([pylon]);
+
+        });
+        // console.log(sortedPylons);
+        addPylonMarkers(sortedPylons);
+      }
 
       $scope.$watch('filteredPylons', (newVal) => {
-        if(newVal && newVal.length) addPylonMarkers();
+        if(newVal && newVal.length) sortPylons();
       });
 
 
