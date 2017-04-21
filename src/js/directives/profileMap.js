@@ -102,7 +102,7 @@ function profileMap($window) {
             position: { lat: parseFloat(pylonArray[0].listing.lat), lng: parseFloat(pylonArray[0].listing.lng) },
             map: map,
             animation: google.maps.Animation.DROP,
-            icon: `/src/images/${pylonImage}`
+            icon: `/images/${pylonImage}`
           });
 
           pylonMarkers.push(marker);

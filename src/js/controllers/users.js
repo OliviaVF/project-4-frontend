@@ -7,6 +7,10 @@ angular
 UsersIndexCtrl.$inject = ['User', '$auth', '$scope', '$state'];
 function UsersIndexCtrl(User, $auth, $scope, $state) {
   const vm = this;
+  vm.allUsers = [];
+  vm.filter = "allUsers";
+  vm.allUsersRender = true;
+
   if ($auth.getPayload()) vm.currentUser = User.get({ id: $auth.getPayload().id });
 
   vm.all = User.query();
@@ -34,6 +38,8 @@ function UsersIndexCtrl(User, $auth, $scope, $state) {
 
   function getAllUsers() {
     vm.allUsersRender = true;
+    vm.followingRender = false;
+    vm.followerRender = false;
     vm.filter = "allUsers";
     User.query()
       .$promise
@@ -43,25 +49,26 @@ function UsersIndexCtrl(User, $auth, $scope, $state) {
   }
 
   function getFollowing() {
+    vm.followingRender = true;
+    vm.allUsersRender = false;
+    vm.followerRender = false;
     vm.filter = "following";
-    vm.allUsers = vm.user.followers;
+    vm.allUsers = vm.currentUser.following;
   }
-  //
-  // function getOurPylons() {
-  //   vm.filter = "our";
-  //   let pylons = [];
-  //   vm.user.following.forEach((user) => {
-  //     user.pylons.forEach((pylon) => {
-  //       pylons.push(pylon);
-  //     });
-  //   });
-  //   vm.allPylons = pylons.concat(vm.user.pylons);
-  //   filterPylons();
-  // }
+
+  function getFollowers() {
+    console.log(vm.currentUser);
+    vm.followerRender = true;
+    vm.followingRender = false;
+    vm.allUsersRender = false;
+    vm.filter = "followers";
+    vm.allUsers = vm.currentUser.followers;
+    console.log(vm.allUsers);
+  }
 
   vm.getAllUsers = getAllUsers;
-  vm.getMyPylons = getMyPylons;
-  // vm.getOurPylons = getOurPylons;
+  vm.getFollowing = getFollowing;
+  vm.getFollowers = getFollowers;
 
 }
 
