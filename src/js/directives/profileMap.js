@@ -89,15 +89,11 @@ function profileMap($window, MAP_STYLES) {
       }
 
       function addPylonMarkers(sortedPylons) {
-        console.log(sortedPylons);
         pylonMarkers = removeMarkers(pylonMarkers);
         sortedPylons.forEach((pylonArray) => {
-          console.log('number', pylonArray.length);
 
           const number = pylonArray.length;
-          console.log(number);
           const pylonImage = number > 10 ? '10-plus.png' : `${number}.png`;
-          console.log(pylonImage);
 
           const marker = new $window.google.maps.Marker({
             position: { lat: parseFloat(pylonArray[0].listing.lat), lng: parseFloat(pylonArray[0].listing.lng) },

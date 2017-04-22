@@ -7,10 +7,10 @@
 <add-map chosen-location="pylonsNew.pylon.geometry"></add-map>
 
 <div class="col-md-6">
-  <form ng-submit="pylonsNew.create()">
-    <div class="form-group">
+  <form name="pylonsNew.newForm" ng-submit="pylonsNew.create()" class="form-group">
+    <div>
       <label for="name">Name</label>
-      <input ng-model="pylonsNew.pylon.name" type="text" name="name" value="" required readonly="readonly">
+      <input ng-model="pylonsNew.pylon.name" type="text" name="name" value="" required readonly="readonly" class="form-control">
     </div>
     <div>
       <label>Category</label>
@@ -19,24 +19,24 @@
         <option ng-repeat="category in pylonsNew.categories" ng-value="{{ category.id }}"> {{ category.name }}</option>
       </select>
     </div>
-    <div class="form-group">
+    <div>
       <label for="address">Address</label>
-      <input ng-model="pylonsNew.pylon.address" type="text" name="address" value="" required readonly="readonly">
+      <input ng-model="pylonsNew.pylon.address" type="text" name="address" value="" required readonly="readonly" class="form-control">
     </div>
-    <div class="form-group">
+    <div>
       <label for="website">Website</label>
-      <input ng-model="pylonsNew.pylon.website" type="text" name="website" value="" required readonly="readonly">
+      <input ng-model="pylonsNew.pylon.website" type="text" name="website" value="" required readonly="readonly" class="form-control">
     </div>
-    <div class="form-group">
+    <div>
       <label for="tel">Tel Number</label>
-      <input ng-model="pylonsNew.pylon.tel" type="text" name="tel" value="" required readonly="readonly">
+      <input ng-model="pylonsNew.pylon.tel" type="text" name="tel" value="" required readonly="readonly" class="form-control">
     </div>
-    <div class="form-group">
+    <div>
       <label for="comments">Comments</label>
-      <textarea name="comments" id="comments" required class="form-control" ng-model="pylonsNew.pylon.comment"></textarea>
+      <textarea name="comments" id="comments" required ng-model="pylonsNew.pylon.comment" class="form-control"></textarea>
     </div>
     <input type="hidden" ng-model="pylonsNew.pylon.lat" name="lat" value="">
     <input type="hidden" ng-model="pylonsNew.pylon.lng" name="lng" value="">
-    <button class="btn addButton">Add</button>
+    <button class="authButton">Add</button>
   </form>
 </div>

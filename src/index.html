@@ -16,18 +16,20 @@
       <header>
         <nav>
           <div class="gradient">
+          <img src="/images/triangle.png" class="pylonImage">
           <div class="pageName">
             <h1>Pylon</h1>
           </div>
-          <div ng-if="main.isAuthenticated()" class="profilePic" ng-style="{'background-image': 'url(' + main.user.image_src + ')'}" ui-sref="usersShow({ id: main.user.id })"></div>
           <div class="links">
             <ul>
               <li ng-if="!main.isAuthenticated()"><a ui-sref="login" ui-sref-active="active">Login</a></li>
               <li ng-if="!main.isAuthenticated()">•</li>
               <li ng-if="!main.isAuthenticated()"><a ui-sref="register" ui-sref-active="active">Register</a></li>
+              <li ng-if="main.isAuthenticated()"><a ui-sref="usersShow({ id: main.user.id })" ui-sref-active="active">Profile</a></li>
+              <li ng-if="main.isAuthenticated()">•</li>
               <li ng-if="main.isAuthenticated()"><a ui-sref="pylonsNew" ui-sref-active="active">New</a></li>
               <li ng-if="main.isAuthenticated()">•</li>
-              <li ng-if="main.isAuthenticated()"><a ui-sref="pylonsIndex" ui-sref-active="active">Pylons</a></li>
+              <li ng-if="main.isAuthenticated()"><a ui-sref="pylonsIndex" ui-sref-active="active">Feed</a></li>
               <li ng-if="main.isAuthenticated()">•</li>
               <li ng-if="main.isAuthenticated()"><a ui-sref="usersIndex" ui-sref-active="active">Users</a></li>
               <li ng-if="main.isAuthenticated()">•</li>

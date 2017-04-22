@@ -1,4 +1,6 @@
 $green: #00a289;
+$grey: #D3D3D3;
+$yellow: #fce650;
 
 body {
   font-family: 'Josefin Sans', sans-serif;
@@ -9,7 +11,7 @@ body {
 }
 
 main  {
-  margin-top: 20vh;
+  margin-top: 25vh;
 }
 
 nav {
@@ -20,34 +22,23 @@ nav {
   z-index:999;
   top: 0;
   text-align: center;
+  .pylonImage {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
   .gradient {
     background: $green;
     .pageName {
-      height: 12vh;
       h1 {
         font-size: 15px;
-        padding-top: 30px;
         color: white;
         margin-top: 0;
         text-transform: uppercase;
         letter-spacing: 3px;
-        padding-bottom: 5%;
       }
-    }
-    .profilePic {
-      margin-top: 5px;
-      height: 30px;
-      width: 30px;
-      border-radius: 15px;
-      border: 1px solid white;
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      float: right;
     }
     .links {
       height: 5vh;
-      top: 20;
       text-align: center;
       ul {
         list-style: none;
@@ -66,17 +57,7 @@ nav {
             position: relative;
             font-size: 1em;
             &:hover {
-              color: white;
-              &:after {
-                content: '';
-                background-color: white;
-                height: 2px;
-                width: 50%;
-                position: absolute;
-                bottom: -4px;
-                left: 25%;
-                transition: opacity 0.2s ease;
-              }
+              color: $yellow;
             }
           }
         }
@@ -85,6 +66,46 @@ nav {
   }
 }
 
+.authButton {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  position: center;
+  background-color: white;
+  width: 200px;
+  margin-top: 12px;
+  border: 1px solid $grey;
+  letter-spacing: 3px;
+  border-radius: 0;
+  padding: 10px;
+  &:hover {
+    color: $green;
+    border-color: $green;
+  }
+}
+
+.profilePic {
+  margin-top: 5px;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  border: 1px solid white;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.profileName {
+  display: inline-block;
+}
+
+.feedColumn {
+  height: 50vh;
+  margin-bottom: 10vh;
+}
 
 .add-map, .pylon-map, .profile-map {
   height: 50vh;

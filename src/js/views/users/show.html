@@ -1,20 +1,17 @@
-<img ng-src="{{ usersShow.user.image_src }}">
+<div class="profilePic" ng-style="{'background-image': 'url(' + usersShow.user.image_src + ')'}"></div>
 
-<h2>{{ usersShow.user.name }}</h2>
-
-<div ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id">
-  <a ui-sref="usersEdit({ id: usersShow.user.id })" class="btn btn-primary">Edit</a>
-  <button ng-click="usersShow.delete()" class="btn btn-danger">Delete</button>
-</div>
+<h2 class="profileName">{{ usersShow.user.name }}</h2>
 
 <div ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id !== usersShow.user.id">
   <button ng-click="usersShow.toggleFollowing()" ng-if="!usersShow.isFollowing()">Follow</button>
   <button ng-click="usersShow.toggleFollowing()" ng-if="usersShow.isFollowing()">Unfollow</button>
 </div>
 
-<button ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id" ng-click="usersShow.getMyPylons()" ng-class="{ 'active': usersShow.filter === 'me' }">Me</button>
-<button ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id" ng-click="usersShow.getOurPylons()" ng-class="{ 'active': usersShow.filter === 'our' }">Me &amp; Friends</button>
-<button ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id" ng-click="usersShow.getAllPylons()" ng-class="{ 'active': usersShow.filter === 'all' }">All Pylons</button>
+<div>
+  <button ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id" ng-click="usersShow.getMyPylons()" ng-class="{ 'active': usersShow.filter === 'me' }">Me</button>
+  <button ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id" ng-click="usersShow.getOurPylons()" ng-class="{ 'active': usersShow.filter === 'our' }">Me &amp; Friends</button>
+  <button ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id" ng-click="usersShow.getAllPylons()" ng-class="{ 'active': usersShow.filter === 'all' }">All Pylons</button>
+</div>
 
 <div>
   <label>Category</label>
@@ -34,9 +31,14 @@
     <p><span>Category: </span> {{ pylon.category.name }}</p>
     <p><span>Comment: </span> {{ pylon.comment }}</p>
     <p><span>User: </span> {{ pylon.user.username}}</p>
+    <div class="infoBtn">
+      <button ng-click="usersShow.deletePylon()" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Delete</button>
+      <a ui-sref="pylonsEdit({ id: usersShow.selectedPylon.id })" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="subNavBtn btn">Edit</a>
+    </div>
   </div>
-  <div class="infoBtn">
-    <button ng-click="usersShow.deletePylon()" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="subNavBtn btn">Delete</button>
-    <a ui-sref="pylonsEdit({ id: usersShow.selectedPylon.id })" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="subNavBtn btn">Edit</a>
-  </div>
+</div>
+
+<div ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id === usersShow.user.id">
+  <a ui-sref="usersEdit({ id: usersShow.user.id })" class="btn btn-primary">Edit Account</a>
+  <button ng-click="usersShow.delete()" class="btn btn-danger">Delete Account</button>
 </div>

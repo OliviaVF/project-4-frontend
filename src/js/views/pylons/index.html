@@ -1,10 +1,12 @@
-<div class="row">
-  <div ng-repeat="pylon in pylonsIndex.all | orderBy: '-created_at'" class="col-md-6" ng-if="pylon.feed">
-
+<div ng-repeat="pylon in pylonsIndex.all | orderBy: '-created_at'" ng-if="pylon.feed">
+  <div class="offset-md-3 col-md-4 feedColumn">
     <pylon-map pylon="pylon"></pylon-map>
+  </div>
+
+  <div class="col-md-6 feedColumn">
+    <div class="profilePic" ng-style="{'background-image': 'url(' + pylon.user.image_src + ')'}" ui-sref="usersShow({ id: pylon.user.id })"></div>
 
     <h2>{{ pylon.user.username }}</h2>
-    <img ng-src="{{ pylon.user.image_src }}">
 
     <p>{{ pylon.listing.name }}</p>
     <p ng-hide="pylonsIndex.categoryEditorEnabled">{{ pylon.category.name }}</p>

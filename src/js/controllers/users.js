@@ -57,13 +57,11 @@ function UsersIndexCtrl(User, $auth, $scope, $state) {
   }
 
   function getFollowers() {
-    console.log(vm.currentUser);
     vm.followerRender = true;
     vm.followingRender = false;
     vm.allUsersRender = false;
     vm.filter = "followers";
     vm.allUsers = vm.currentUser.followers;
-    console.log(vm.allUsers);
   }
 
   vm.getAllUsers = getAllUsers;
@@ -83,7 +81,6 @@ function UsersShowCtrl(User, Pylon, Listing, Category, filterFilter, $stateParam
 
   User.get($stateParams, (user)=>{
     vm.user = user;
-    console.log(vm.user);
     vm.allPylons = user.pylons;
     filterPylons();
 
@@ -147,7 +144,6 @@ function UsersShowCtrl(User, Pylon, Listing, Category, filterFilter, $stateParam
       .then((pylons) => {
         vm.allPylons = pylons;
         filterPylons();
-        console.log(pylons);
       });
   }
 

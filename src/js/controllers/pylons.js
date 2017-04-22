@@ -34,8 +34,6 @@ function PylonsIndexCtrl(Pylon, User, Category, $stateParams, $state, $auth) {
       google_place_id: pylon.listing.google_place_id
     };
 
-    console.log(pylon);
-    console.log(newPylon);
     if (type === "pin") {
       newPylon.feed = false;
     } else {
@@ -84,7 +82,6 @@ function PylonsIndexCtrl(Pylon, User, Category, $stateParams, $state, $auth) {
 
   vm.commentSave = commentSave;
   function commentSave(pylon) {
-    console.log(pylon);
     vm.pylon = pylon;
     vm.pylon.category_id = vm.pylon.category.id;
     Pylon
@@ -103,10 +100,8 @@ function PylonsIndexCtrl(Pylon, User, Category, $stateParams, $state, $auth) {
       const filtered = vm.categories.filter((category)=>{
          return category.id === thisCategory;
        });
-       console.log(filtered);
 
        vm.pylon.category.name = filtered[0].name;
-       console.log(vm.pylon);
        vm.categoryEditorEnabled = false;
      });
   }

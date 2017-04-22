@@ -1,7 +1,7 @@
 
 <div class="col-md-6">
   <form name="auth.registerForm" ng-submit="auth.register()" novalidate class="form-group">
-    <div class="form-group">
+    <div>
       <label for="base64">Image</label>
       <input type="file" base64 name="base64" id="base64" ng-model="auth.user.base64">
     </div>
@@ -46,6 +46,6 @@
       </div>
     </div>
 
-    <button>Register</button>
+    <button class="authButton">Register</button>
   </form>
 </div>
