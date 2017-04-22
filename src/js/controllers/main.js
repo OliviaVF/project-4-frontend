@@ -2,8 +2,8 @@ angular
   .module('project-4-api')
   .controller('MainCtrl', MainCtrl);
 
-MainCtrl.$inject = ['$rootScope', '$state', '$auth'];
-function MainCtrl($rootScope, $state, $auth) {
+MainCtrl.$inject = ['User', '$rootScope', '$state', '$auth'];
+function MainCtrl(User, $rootScope, $state, $auth) {
   const vm = this;
   vm.isAuthenticated = $auth.isAuthenticated;
 
@@ -16,7 +16,10 @@ function MainCtrl($rootScope, $state, $auth) {
   $rootScope.$on('$stateChangeSuccess', () => {
     if(vm.stateHasChanged) vm.message = null;
     if(!vm.stateHasChanged) vm.stateHasChanged = true;
-    if($auth.getPayload()) vm.currentUser = $auth.getPayload();
+    if($auth.getPayload()) {
+      vm.currentUser = $auth.getPayload();
+      vm.user = User.get({ id: vm.currentUser.id });
+    }
   });
 
   const protectedStates = ['pylonsNew', 'pylonsEdit', 'pylonsIndex', 'usersIndex', 'usersShow', 'usersEdit'];

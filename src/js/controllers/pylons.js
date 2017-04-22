@@ -26,6 +26,30 @@ function PylonsIndexCtrl(Pylon, User, Category, $stateParams, $state, $auth) {
        });
   }
 
+  function recreate(pylon, type) {
+    const newPylon = {
+      listing_id: pylon.listing_id,
+      category_id: pylon.category_id,
+      comment: pylon.comment,
+      google_place_id: pylon.listing.google_place_id
+    };
+
+    console.log(pylon);
+    console.log(newPylon);
+    if (type === "pin") {
+      newPylon.feed = false;
+    } else {
+      newPylon.feed = true;
+    }
+    Pylon
+      .save({ pylon: newPylon })
+      .$promise
+      .then(() => $state.go('usersShow', { id: vm.currentUser.id }));
+  }
+
+  vm.recreate = recreate;
+
+
   vm.delete = pylonsDelete;
 
   function enableCommentEditor() {
@@ -93,6 +117,7 @@ function PylonsNewCtrl(Category, Pylon, User, $state, $scope, $http, API_URL) {
   const vm = this;
   vm.categories = Category.query();
   vm.pylon = {};
+  vm.pylon.feed = true;
   vm.users = User.query();
 
   function pylonsCreate() {

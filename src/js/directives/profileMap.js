@@ -5,8 +5,8 @@ angular
   .directive('profileMap', profileMap);
 
 
-profileMap.$inject = ['$window'];
-function profileMap($window) {
+profileMap.$inject = ['$window', 'MAP_STYLES'];
+function profileMap($window, MAP_STYLES) {
   const directive = {
     restrict: 'E',
     replace: true,
@@ -28,7 +28,8 @@ function profileMap($window) {
       const map = new $window.google.maps.Map(element[0], {
         zoom: 12,
         center: {lat: 51.515559, lng: -0.071746},
-        scrollwheel: false
+        scrollwheel: false,
+        styles: MAP_STYLES
       });
 
       function getLocation() {

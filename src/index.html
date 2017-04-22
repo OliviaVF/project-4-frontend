@@ -2,6 +2,8 @@
 <html ng-app="project-4-api">
   <head>
     <base href="/">
+    <script src="https://use.fontawesome.com/501cbc6cf5.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMBRc7S-fUkCbXazZbh-E06kbFfZFk-MQ&libraries=places,geometry"></script>
     <meta charset="utf-8">
     <title>Pylon</title>
@@ -13,21 +15,32 @@
   <body ng-controller="MainCtrl as main" ng-class="main.pageName">
       <header>
         <nav>
-          <ul>
-            <li><a ui-sref="home">Pylon</a></li>
-
-            <li ng-if="!main.isAuthenticated()"><a ui-sref="login" ui-sref-active="active">Login</a></li>
-            <li ng-if="!main.isAuthenticated()"><a ui-sref="register" ui-sref-active="active">Register</a></li>
-            <li ng-if="main.isAuthenticated()"><a ng-click="main.logout()" href="#">Logout</a></li>
-            <li ng-if="main.isAuthenticated()"><a ui-sref="pylonsNew" ui-sref-active="active">Add Pylon</a></li>
-            <li><a ui-sref="pylonsIndex" ui-sref-active="active">Pylons</a></li>
-            <li><a ui-sref="usersIndex" ui-sref-active="active">Users</a></li>
-          </ul>
+          <div class="gradient">
+          <div class="pageName">
+            <h1>Pylon</h1>
+          </div>
+          <div ng-if="main.isAuthenticated()" class="profilePic" ng-style="{'background-image': 'url(' + main.user.image_src + ')'}" ui-sref="usersShow({ id: main.user.id })"></div>
+          <div class="links">
+            <ul>
+              <li ng-if="!main.isAuthenticated()"><a ui-sref="login" ui-sref-active="active">Login</a></li>
+              <li ng-if="!main.isAuthenticated()">•</li>
+              <li ng-if="!main.isAuthenticated()"><a ui-sref="register" ui-sref-active="active">Register</a></li>
+              <li ng-if="main.isAuthenticated()"><a ui-sref="pylonsNew" ui-sref-active="active">New</a></li>
+              <li ng-if="main.isAuthenticated()">•</li>
+              <li ng-if="main.isAuthenticated()"><a ui-sref="pylonsIndex" ui-sref-active="active">Pylons</a></li>
+              <li ng-if="main.isAuthenticated()">•</li>
+              <li ng-if="main.isAuthenticated()"><a ui-sref="usersIndex" ui-sref-active="active">Users</a></li>
+              <li ng-if="main.isAuthenticated()">•</li>
+              <li ng-if="main.isAuthenticated()"><a ng-click="main.logout()" href="#">Logout</a></li>
+            </ul>
+          </div>
+        </div>
         </nav>
       </header>
       <div class="message" ng-if="main.message">
         <div class="container">{{main.message}}</div>
       </div>
-      <main ui-view></main>
+      <main ui-view class="container">
+      </main>
     </body>
 </html>

@@ -1,52 +1,51 @@
-<div class="row">
-  <div class="col-md-6">
-    <form name="auth.registerForm" ng-submit="auth.register()" novalidate>
-      <div class="form-group">
-        <label for="base64">Image</label>
-        <input type="file" base64 name="base64" id="base64" ng-model="auth.user.base64">
-      </div>
 
-      <div>
-        <label>Name</label>
-        <input type="text" name="name" id="name" ng-model="auth.user.name" required>
-        <div class="messages error" ng-messages="auth.registerForm.name.$error" role="alert" ng-show="(auth.registerForm.$submitted || auth.registerForm.name.$touched) && auth.registerForm.name.$invalid">
-          <div class="message" ng-message="required">Please enter a value for this field.</div>
-        </div>
-      </div>
+<div class="col-md-6">
+  <form name="auth.registerForm" ng-submit="auth.register()" novalidate class="form-group">
+    <div class="form-group">
+      <label for="base64">Image</label>
+      <input type="file" base64 name="base64" id="base64" ng-model="auth.user.base64">
+    </div>
 
-      <div>
-        <label>Username</label>
-        <input type="text" name="username" id="username" ng-model="auth.user.username" required>
-        <div class="messages error" ng-messages="auth.registerForm.username.$error" role="alert" ng-show="(auth.registerForm.$submitted || auth.registerForm.username.$touched) && auth.registerForm.username.$invalid">
-          <div class="message" ng-message="required">Please enter a value for this field.</div>
-        </div>
+    <div>
+      <label>Name</label>
+      <input type="text" name="name" id="name" ng-model="auth.user.name" required class="form-control">
+      <div class="messages error" ng-messages="auth.registerForm.name.$error" role="alert" ng-show="(auth.registerForm.$submitted || auth.registerForm.name.$touched) && auth.registerForm.name.$invalid">
+        <div class="message" ng-message="required">Please enter a value for this field.</div>
       </div>
+    </div>
 
-      <div>
-        <label>Email</label>
-        <input type="text" name="email" id="email" ng-model="auth.user.email" required>
-        <div class="messages error" ng-messages="auth.registerForm.email.$error" role="alert" ng-show="(auth.registerForm.$submitted || auth.registerForm.email.$touched) && auth.registerForm.email.$invalid">
-          <div class="message" ng-message="required">Please enter a value for this field.</div>
-        </div>
+    <div>
+      <label>Username</label>
+      <input type="text" name="username" id="username" ng-model="auth.user.username" required class="form-control">
+      <div class="messages error" ng-messages="auth.registerForm.username.$error" role="alert" ng-show="(auth.registerForm.$submitted || auth.registerForm.username.$touched) && auth.registerForm.username.$invalid">
+        <div class="message" ng-message="required">Please enter a value for this field.</div>
       </div>
+    </div>
 
-      <div>
-        <label>Password</label>
-        <input type="password" name="password" id="password" ng-model="auth.user.password" required>
-        <div class="messages error" ng-messages="auth.registerForm.password.$error" role="alert" ng-show="(auth.registerForm.$submitted || auth.registerForm.password.$touched) && auth.registerForm.password.$invalid">
-          <div class="message" ng-message="required">Please enter a value for this field.</div>
-        </div>
+    <div>
+      <label>Email</label>
+      <input type="text" name="email" id="email" ng-model="auth.user.email" required class="form-control">
+      <div class="messages error" ng-messages="auth.registerForm.email.$error" role="alert" ng-show="(auth.registerForm.$submitted || auth.registerForm.email.$touched) && auth.registerForm.email.$invalid">
+        <div class="message" ng-message="required">Please enter a value for this field.</div>
       </div>
+    </div>
 
-      <div>
-        <label>Password Confirmation</label>
-        <input type="password" name="password_confirmation" id="password_confirmation" ng-model="auth.user.password_confirmation" required>
-        <div class="messages error" ng-messages="auth.registerForm.password_confirmation.$error" role="alert" ng-show="(auth.registerForm.$submitted || auth.registerForm.password_confirmation.$touched) && auth.registerForm.password_confirmation.$invalid">
-          <div class="message" ng-message="required">Please enter a value for this field.</div>
-        </div>
+    <div>
+      <label>Password</label>
+      <input type="password" name="password" id="password" ng-model="auth.user.password" required class="form-control">
+      <div class="messages error" ng-messages="auth.registerForm.password.$error" role="alert" ng-show="(auth.registerForm.$submitted || auth.registerForm.password.$touched) && auth.registerForm.password.$invalid">
+        <div class="message" ng-message="required">Please enter a value for this field.</div>
       </div>
+    </div>
 
-      <button>Register</button>
-    </form>
-  </div>
+    <div>
+      <label>Password Confirmation</label>
+      <input type="password" name="password_confirmation" id="password_confirmation" ng-model="auth.user.password_confirmation" required class="form-control">
+      <div class="messages error" ng-messages="auth.registerForm.password_confirmation.$error" role="alert" ng-show="(auth.registerForm.$submitted || auth.registerForm.password_confirmation.$touched) && auth.registerForm.password_confirmation.$invalid">
+        <div class="message" ng-message="required">Please enter a value for this field.</div>
+      </div>
+    </div>
+
+    <button>Register</button>
+  </form>
 </div>

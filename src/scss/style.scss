@@ -1,4 +1,90 @@
-// Import all of your scss files here
+$green: #00a289;
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+* {
+  font-family: inherit;
+}
+
+main  {
+  margin-top: 20vh;
+}
+
+nav {
+  position:fixed;
+  overflow: hidden;
+  left: 0;
+  width: 100%;
+  z-index:999;
+  top: 0;
+  text-align: center;
+  .gradient {
+    background: $green;
+    .pageName {
+      height: 12vh;
+      h1 {
+        font-size: 15px;
+        padding-top: 30px;
+        color: white;
+        margin-top: 0;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        padding-bottom: 5%;
+      }
+    }
+    .profilePic {
+      margin-top: 5px;
+      height: 30px;
+      width: 30px;
+      border-radius: 15px;
+      border: 1px solid white;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      float: right;
+    }
+    .links {
+      height: 5vh;
+      top: 20;
+      text-align: center;
+      ul {
+        list-style: none;
+        padding-left: 0px;
+        margin: 0 auto;
+        li {
+          padding-left: 3.5vh;
+          padding-right: 3.5vh;
+          display: inline-block;
+          padding-bottom: 1vh;
+          color: white;
+          a {
+            font-size: 1.7vh;
+            color: white;
+            text-decoration: none;
+            position: relative;
+            font-size: 1em;
+            &:hover {
+              color: white;
+              &:after {
+                content: '';
+                background-color: white;
+                height: 2px;
+                width: 50%;
+                position: absolute;
+                bottom: -4px;
+                left: 25%;
+                transition: opacity 0.2s ease;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 
 .add-map, .pylon-map, .profile-map {
   height: 50vh;

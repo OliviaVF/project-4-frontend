@@ -3,8 +3,8 @@ angular
    .directive('addMap', addMap)
    .directive('autocomplete', autocomplete);
 
-addMap.$inject = ['$window'];
-function addMap($window) {
+addMap.$inject = ['$window', 'MAP_STYLES'];
+function addMap($window, MAP_STYLES) {
  const directive = {
    restrict: 'E',
    replace: true,
@@ -18,7 +18,8 @@ function addMap($window) {
      const map = new $window.google.maps.Map(element[0], {
        zoom: 12,
        center: {lat: 51.515559, lng: -0.071746},
-       scrollwheel: false
+       scrollwheel: false,
+       styles: MAP_STYLES
      });
 
      const pylonMarker = new $window.google.maps.Marker({

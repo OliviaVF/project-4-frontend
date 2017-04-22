@@ -11,7 +11,7 @@
   </div>
 
   <div ng-repeat="follower in usersIndex.currentUser.followers | filter:{ username: usersIndex.q }" class="col-md-6">
-    <img ng-src="{{ follower.image_src }}">
+    <img ng-src="{{ follower.image_src }} ? default_user.jpg">
     <a ui-sref="usersShow({ id: follower.id })"><h2>{{ follower.username }}</h2></a>
   </div>
 </div>
