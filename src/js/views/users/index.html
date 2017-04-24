@@ -9,11 +9,11 @@
 
     <div  class="loginButton">
       <div>
-        <input class="search" type="text" placeholder="Search Users" ng-model="usersIndex.q">
+        <input class="search" type="text" placeholder="Search Users" ng-model="usersIndex.q1">
       </div>
     </div>
 
-    <div ng-repeat="follower in usersIndex.currentUser.followers | filter:{ username: usersIndex.q }">
+    <div ng-repeat="follower in usersIndex.currentUser.followers | filter:{ username: usersIndex.q1 }">
       <div class="col-md-2">
         <div class="profilePic" ng-style="{'background-image': 'url(' + follower.image_src + ')'}" ui-sref="usersShow({ id: follower.id })"></div>
       </div>
@@ -33,11 +33,11 @@
 
     <div  class="loginButton">
       <div>
-        <input class="search" type="text" placeholder="Search Users" ng-model="usersIndex.q">
+        <input class="search" type="text" placeholder="Search Users" ng-model="usersIndex.q2">
       </div>
     </div>
 
-    <div ng-repeat="following in usersIndex.currentUser.following | filter:{ username: usersIndex.q }">
+    <div ng-repeat="following in usersIndex.currentUser.following | filter:{ username: usersIndex.q2 }">
       <div class="col-md-2">
         <div class="profilePic" ng-style="{'background-image': 'url(' + following.image_src + ')'}" ui-sref="usersShow({ id: following.id })"></div>
       </div>
@@ -55,11 +55,11 @@
 
     <div  class="loginButton">
       <div>
-        <input class="search" type="text" placeholder="Search Users" ng-model="usersIndex.q">
+        <input class="search" type="text" placeholder="Search Users" ng-model="usersIndex.q3">
       </div>
     </div>
 
-    <div ng-repeat="user in usersIndex.all | filter:{ username: usersIndex.q }">
+    <div ng-repeat="user in usersIndex.all | filter:{ username: usersIndex.q3 }">
       <div class="col-md-2">
         <div class="profilePic" ng-style="{'background-image': 'url(' + user.image_src + ')'}" ui-sref="usersShow({ id: user.id })"></div>
       </div>
@@ -68,8 +68,8 @@
       </div>
 
       <div ng-if="main.isAuthenticated()" class="col-md-1">
-        <button class="follow" ng-click="usersIndex.toggleFollowing(user)" ng-if="!usersIndex.isFollowing(user)"><i class="fa fa-check" aria-hidden="true"></i></button>
-        <button class="follow" ng-click="usersIndex.toggleFollowing(user)" ng-if="usersIndex.isFollowing(user)"><i class="fa fa-times" aria-hidden="true"></i></button>
+        <button class="follow" ng-click="usersIndex.toggleFollowing(user)" ng-if="!usersIndex.isFollowing(user) && main.currentUser.id !== user.id"><i class="fa fa-check" aria-hidden="true"></i></button>
+        <button class="follow" ng-click="usersIndex.toggleFollowing(user)" ng-if="usersIndex.isFollowing(user) && main.currentUser.id !== user.id"><i class="fa fa-times" aria-hidden="true"></i></button>
       </div>
     </div>
   </div>

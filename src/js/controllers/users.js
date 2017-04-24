@@ -98,13 +98,16 @@ function UsersShowCtrl(User, Pylon, Listing, Category, filterFilter, $stateParam
   });
 
   function usersDelete() {
-
-    vm.user
-      .$remove()
-      .then(() => {
-        $auth.logout();
-        $state.go('register');
-      });
+    console.log(vm.user);
+    User
+    .remove({ id: vm.user.id })
+    .$promise
+    .then(() => {
+      console.log('fire');
+      $auth.logout();
+      $state.go('register');
+      console.log('done');
+    });
   }
   vm.delete = usersDelete;
 
@@ -213,9 +216,47 @@ function UsersShowCtrl(User, Pylon, Listing, Category, filterFilter, $stateParam
     }
   }
 
+  function isPylonVisible(pylon) {
+    if(vm.filter === 'me' && determineUser(pylon) === 'userPylon') {
+      return true;
+    } else if (vm.filter === 'our' && (determineUser(pylon) === 'userPylon' || determineUser(pylon) === 'followingPylon')) {
+      return true;
+    } else if (vm.filter === 'all' && (determineUser(pylon) === 'userPylon' || determineUser(pylon) === 'followingPylon' || determineUser(pylon) === 'allPylon')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  vm.isPylonVisible = isPylonVisible;
+
   vm.determineUser = determineUser;
 
+  function recreate(pylon, type) {
+    const newPylon = {
+      listing_id: pylon.listing_id,
+      category_id: pylon.category_id,
+      comment: pylon.comment,
+      google_place_id: pylon.listing.google_place_id
+    };
 
+    if (type === "pin") {
+      newPylon.feed = false;
+    } else {
+      newPylon.feed = true;
+    }
+    Pylon
+      .save({ pylon: newPylon })
+      .$promise
+      .then(() =>{
+         $state.go('usersShow', { id: vm.currentUser.id });
+         vm.currentUser.pylons.push(newPylon);
+         getMyPylons();
+        console.log(vm.currentUser);
+       });
+  }
+
+  vm.recreate = recreate;
 }
 
 UsersEditCtrl.$inject = ['User', '$stateParams', '$state'];

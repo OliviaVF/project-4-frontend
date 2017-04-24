@@ -38,10 +38,10 @@
           </div>
         </div>
         </nav>
+        <div class="message" ng-if="main.message">
+          <div class="container">{{main.message}}</div>
+        </div>
       </header>
-      <div class="message" ng-if="main.message">
-        <div class="container">{{main.message}}</div>
-      </div>
       <main ui-view class="container">
       </main>
     </body>

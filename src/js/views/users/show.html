@@ -1,10 +1,6 @@
 <div class="profile">
-  <div class="picture">
-    <div class="showPic" ng-style="{'background-image': 'url(' + usersShow.user.image_src + ')'}"></div>
-  </div>
-  <div class="profileName">
-    <h2>{{ usersShow.user.username }}</h2>
-  </div>
+  <div class="showPic" ng-style="{'background-image': 'url(' + usersShow.user.image_src + ')'}"></div>
+  <h2>{{ usersShow.user.username }}</h2>
 
   <div class="loginButton">
     <div ng-if="main.isAuthenticated() && usersShow.currentUser.$resolved && main.currentUser.id !== usersShow.user.id">
@@ -33,14 +29,20 @@
 
   <profile-map filtered-pylons="usersShow.filteredPylons" user-pylons="usersShow.user.pylons" selected-listing="usersShow.selectedListing" ng-if="usersShow.user.$resolved"></profile-map>
   <h1>{{ usersShow.listing.name }}</h1>
+  <p class="listing"><a href="{{ usersShow.listing.website }}" target="_blank" ng-if="usersShow.selectedListing" class="listing">Website</a></p>
+  <p class="listing"><a href="tel:{{ usersShow.listing.tel }}" class="listing">{{ usersShow.listing.tel }}</a></p>
   <div class="row" ng-show="usersShow.listing">
-    <div class="infoData" ng-repeat="pylon in usersShow.listing.pylons" ng-class="usersShow.determineUser(pylon)">
+    <div class="infoData" ng-repeat="pylon in usersShow.listing.pylons" ng-class="usersShow.determineUser(pylon)" ng-if="usersShow.isPylonVisible(pylon)">
+      <hr />
+      <p ng-if="main.currentUser.id === pylon.user.id"><span>User: </span>{{ pylon.user.username }}</p>
+      <a class="userLink" ui-sref="usersShow({ id: pylon.user.id })" ng-if="main.currentUser.id !== pylon.user.id"><p><span>User: </span> {{ pylon.user.username}}</p></a>
       <p><span>Category: </span> {{ pylon.category.name }}</p>
       <p><span>Comment: </span> {{ pylon.comment }}</p>
-      <p><span>User: </span> {{ pylon.user.username}}</p>
-      <div class="infoBtn">
-        <button ng-click="usersShow.deletePylon(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Delete</button>
-        <a ui-sref="pylonsEdit({ id: usersShow.selectedPylon.id })" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="subNavBtn btn">Edit</a>
+      <div class="loginButton">
+        <button ng-click="usersShow.deletePylon(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="authButton selectedButton">Delete</button>
+
+        <button ng-click="usersShow.recreate(pylon, 'pin')" ng-if="main.isAuthenticated() && main.currentUser.id !== pylon.user.id" class="authButton selectedButton">Pin</button>
+        <button ng-click="usersShow.recreate(pylon, 'repost')" ng-if="main.isAuthenticated() && main.currentUser.id !== pylon.user.id" class="authButton selectedButton">Repost</button>
       </div>
     </div>
   </div>

@@ -14,7 +14,6 @@ function PylonsIndexCtrl(Pylon, User, Category, $stateParams, $state, $auth) {
     vm.all = data;
   });
 
-
   function pylonsDelete(pylon) {
       pylon
       .$remove()
@@ -120,10 +119,12 @@ function PylonsNewCtrl(Category, Pylon, User, $state, $scope, $http, API_URL) {
   vm.users = User.query();
 
   function pylonsCreate() {
-    Pylon
-      .save({ pylon: vm.pylon })
-      .$promise
-      .then(() => $state.go('pylonsIndex'));
+    if (vm.newForm.$valid) {
+      Pylon
+        .save({ pylon: vm.pylon })
+        .$promise
+        .then(() => $state.go('pylonsIndex'));
+    }
   }
 
   vm.create = pylonsCreate;

@@ -24,7 +24,8 @@ function addMap($window, MAP_STYLES) {
 
      const pylonMarker = new $window.google.maps.Marker({
        map: map,
-       animation: google.maps.Animation.DROP
+       animation: google.maps.Animation.DROP,
+       icon: '/images/pylon.png'
      });
 
      function getLocation() {

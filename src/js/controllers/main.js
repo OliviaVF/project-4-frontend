@@ -8,18 +8,21 @@ function MainCtrl(User, $rootScope, $state, $auth) {
   vm.isAuthenticated = $auth.isAuthenticated;
 
   $rootScope.$on('error', (e, err) => {
+    console.log('inside error', err);
     vm.stateHasChanged = false;
     vm.message = err.data.message;
     $state.go('login');
   });
 
-  $rootScope.$on('$stateChangeSuccess', () => {
+  $rootScope.$on('$stateChangeSuccess', (e, toState) => {
     if(vm.stateHasChanged) vm.message = null;
     if(!vm.stateHasChanged) vm.stateHasChanged = true;
-    if($auth.getPayload()) {
+
+    if($auth.getPayload() && !vm.user) {
       vm.currentUser = $auth.getPayload();
       vm.user = User.get({ id: vm.currentUser.id });
     }
+    vm.pageName = toState.name;
   });
 
   const protectedStates = ['pylonsNew', 'pylonsEdit', 'pylonsIndex', 'usersIndex', 'usersShow', 'usersEdit'];
@@ -30,7 +33,7 @@ function MainCtrl(User, $rootScope, $state, $auth) {
       $state.go('login');
       vm.message = 'You must be logged in to access this page.';
     }
-    vm.pageName = toState.name;
+    // vm.pageName = toState.name;
   });
 
   function logout() {

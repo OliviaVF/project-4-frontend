@@ -8,17 +8,20 @@
   <add-map chosen-location="pylonsNew.pylon.geometry"></add-map>
 
   <div>
-    <form name="pylonsNew.newForm" ng-submit="pylonsNew.create()">
+    <form name="pylonsNew.newForm" novalidate ng-submit="pylonsNew.create()">
       <div>
         <label for="name">Name</label>
         <input ng-model="pylonsNew.pylon.name" type="text" name="name" value="" required readonly="readonly" class="form-control">
       </div>
       <div>
-        <label>Category</label>
-        <select ng-model="pylonsNew.pylon.category_id">
+        <label for="category">Category</label>
+        <select name="category" id="category" ng-model="pylonsNew.pylon.category_id" required>
           <option disabled selected value="">Please select...</option>
           <option ng-repeat="category in pylonsNew.categories" ng-value="{{ category.id }}"> {{ category.name }}</option>
         </select>
+        <div class="messages error" ng-messages="pylonsNew.newForm.category.$error" role="alert" ng-show="(pylonsNew.newForm.$submitted || pylonsNew.newForm.category.$touched) && pylonsNew.newForm.category.$invalid">
+          <div class="message" ng-message="required">Please enter a value for this field.</div>
+        </div>
       </div>
       <div>
         <label for="address">Address</label>
@@ -35,6 +38,9 @@
       <div>
         <label for="comments">Comments</label>
         <textarea name="comments" id="comments" required ng-model="pylonsNew.pylon.comment" class="form-control"></textarea>
+        <div class="messages error" ng-messages="pylonsNew.newForm.comments.$error" role="alert" ng-show="(pylonsNew.newForm.$submitted || pylonsNew.newForm.comments.$touched) && pylonsNew.newForm.comments.$invalid">
+          <div class="message" ng-message="required">Please enter a value for this field.</div>
+        </div>
       </div>
       <input type="hidden" ng-model="pylonsNew.pylon.lat" name="lat" value="">
       <input type="hidden" ng-model="pylonsNew.pylon.lng" name="lng" value="">

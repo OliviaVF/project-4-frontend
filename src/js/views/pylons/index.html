@@ -1,13 +1,12 @@
 <div class="feed">
 <div ng-repeat="pylon in pylonsIndex.all | orderBy: '-created_at'" ng-if="pylon.feed">
-  <div class="col-md-6 feedColumn">
-    <pylon-map pylon="pylon"></pylon-map>
-  </div>
 
   <div class="col-md-6 feedColumn">
     <div class="profilePic" ng-style="{'background-image': 'url(' + pylon.user.image_src + ')'}" ui-sref="usersShow({ id: pylon.user.id })"></div>
 
-    <h2 class="profileName profName">{{ pylon.user.username }}</h2>
+    <a class="username" ui-sref="usersShow({ id: user.id })"><h2 class="username">{{ pylon.user.username }}</h2></a>
+
+    <p>{{ pylon.created_at | date: "MMM dd, yy 'at' h:mma" }}</p>
 
     <p class="name">{{ pylon.listing.name }}</p>
     <p ng-hide="pylonsIndex.active === pylon.id" class="profileName"> Category: {{ pylon.category.name }}</p>
@@ -24,7 +23,7 @@
 
     <button class="fa" ng-click="pylonsIndex.enableCategoryEditor(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" ng-hide="pylonsIndex.categoryEditorEnabled"><i class="fa fa-pencil" aria-hidden="true"></i></button>
     <p>{{ pylon.listing.address }}</p>
-    <p><a href="{{ pylon.listing.website }}">Website</a></p>
+    <p><a href="{{ pylon.listing.website }}" target="_blank">Website</a></p>
     <p><a href="tel:{{ pylon.listing.tel }}">{{ pylon.listing.tel }}</a></p>
     <p ng-hide="pylonsIndex.activeComment === pylon.id" class="profileName">Comment: {{ pylon.comment }}</p>
 
@@ -43,6 +42,10 @@
 
     <button ng-click="pylonsIndex.recreate(pylon, 'pin')" ng-if="main.isAuthenticated() && main.currentUser.id !== pylon.user.id" class="authButton">Pin</button>
     <button ng-click="pylonsIndex.recreate(pylon, 'repost')" ng-if="main.isAuthenticated() && main.currentUser.id !== pylon.user.id" class="authButton">Repost</button>
+  </div>
+
+  <div class="col-md-6 feedColumn">
+    <pylon-map pylon="pylon"></pylon-map>
   </div>
 </div>
 </div>

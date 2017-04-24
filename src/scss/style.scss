@@ -51,15 +51,15 @@ nav {
           display: inline-block;
           padding-bottom: 1vh;
           color: white;
+          &:hover {
+          animation: pulse 2s infinite;
+          }
           a {
             font-size: 1.7vh;
             color: white;
             text-decoration: none;
             position: relative;
             font-size: 1em;
-            &:hover {
-              color: $yellow;
-            }
           }
         }
       }
@@ -112,8 +112,8 @@ nav {
 }
 
 .feedColumn, .pylon-map {
-  height: 40vh;
-  margin-bottom: 60px;
+  height: 360px;
+  margin-bottom: 50px;
 }
 
 .add-map, .profile-map {
@@ -239,7 +239,6 @@ nav {
       border-radius: 20px;
       padding: 10px;
       display: inline-block;
-
       &:hover {
         color: $green;
         border-color: $green;
@@ -272,14 +271,11 @@ nav {
     margin: 10px;
     position: relative;
   }
-  .profileName {
-    margin: 0 auto;
-    h2 {
-      text-align: center;
-    }
+  .selectedButton {
+    width: 110px;
+    margin: 10px;
   }
-  .picture {
-    margin: 0 auto;
+  h2 {
     text-align: center;
   }
   .showPic {
@@ -291,11 +287,32 @@ nav {
     background-size: cover;
     background-repeat: no-repeat;
     cursor: pointer;
+    margin: 0 auto;
   }
   select {
-    width: 87%;
+    width: 84%;
     margin-left: 2%;
     background-color: white;
+    font-size: 20px;
+    padding:10px;
+  }
+  p, label {
+    font-size: 20px;
+  }
+  h1 {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  .listing {
+    text-align: center;
+    color: black;
+    &:hover {
+      color: $green;
+      text-decoration: none
+    }
   }
 }
 
@@ -356,7 +373,7 @@ input[type=range]::-webkit-slider-thumb {
   .feed {
     margin: 0 auto;
     text-align:left;
-    max-width: 59%;
+    max-width: 65%;
   }
   .name{
     text-transform: uppercase;
@@ -367,24 +384,72 @@ input[type=range]::-webkit-slider-thumb {
     border: none;
     color: $green;
   }
-  .profName {
-    margin-left: 5%;
-  }
   .authButton {
     width: 100px;
+  }
+  .username {
+    display: inline-block;
+    padding-left: 10px;
+    font-size: 25px;
+    color: black;
+    &:hover {
+      color: $green;
+    }
+  }
+  a {
+    color: $green;
+  }
+  p {
+    font-size: 17px;
+  }
+}
+
+.home {
+  .about {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 65%;
+  }
+  p {
+    font-size: 20px;
+    color: $green;
+  }
+  h1 {
+    color: $green;
   }
 }
 
 .userPylon {
-  border: 2px solid blue;
+  color: $green;
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .followingPylon {
-  border: 2px solid green;
+  color: #5d88e3;
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .allPylon {
-  border: 2px solid red;
+  color: black;
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @media only screen and (max-width: 950px) {
