@@ -6,10 +6,10 @@
   <div class="col-md-6 feedColumn">
     <div class="profilePic" ng-style="{'background-image': 'url(' + pylon.user.image_src + ')'}" ui-sref="usersShow({ id: pylon.user.id })"></div>
 
-    <h2>{{ pylon.user.username }}</h2>
+    <h2 class="profileName">{{ pylon.user.username }}</h2>
 
     <p>{{ pylon.listing.name }}</p>
-    <p ng-hide="pylonsIndex.categoryEditorEnabled">{{ pylon.category.name }}</p>
+    <p ng-hide="pylonsIndex.categoryEditorEnabled" class="profileName">{{ pylon.category.name }}</p>
 
     <div ng-show="pylonsIndex.categoryEditorEnabled">
       <select ng-model="pylon.category_id" ng-show="pylonsIndex.categoryEditorEnabled">
@@ -25,7 +25,7 @@
     <p>{{ pylon.listing.address }}</p>
     <p>{{ pylon.listing.website }}</p>
     <p>{{ pylon.listing.tel }}</p>
-    <p ng-hide="pylonsIndex.commentEditorEnabled">{{ pylon.comment }}</p>
+    <p ng-hide="pylonsIndex.commentEditorEnabled" class="profileName">{{ pylon.comment }}</p>
 
     <div ng-show="pylonsIndex.commentEditorEnabled">
       <input ng-model="pylon.comment" ng-show="pylonsIndex.commentEditorEnabled">
@@ -36,7 +36,9 @@
 
     <button ng-click="pylonsIndex.enableCommentEditor(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 
-    <button ng-click="pylonsIndex.delete(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Delete Post</button>
+    <div>
+      <button ng-click="pylonsIndex.delete(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id">Delete Post</button>
+    </div>  
 
     <button ng-click="pylonsIndex.recreate(pylon, 'pin')" ng-if="main.isAuthenticated() && main.currentUser.id !== pylon.user.id">Pin</button>
     <button ng-click="pylonsIndex.recreate(pylon, 'repost')" ng-if="main.isAuthenticated() && main.currentUser.id !== pylon.user.id">Repost</button>

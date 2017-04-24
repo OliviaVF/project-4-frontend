@@ -1,42 +1,44 @@
-<div>
-  <div id="pac-container">
-    <input id="pac-input" type="text" placeholder="Search Location" autocomplete ng-model="pylonsNew.pylon.location" class="form-control" geometry="pylonsNew.pylon.geometry" choose-listing="pylonsNew.chooseListing(place)">
+<div class="new">
+  <div>
+    <div id="pac-container">
+      <input id="pac-input" type="text" placeholder="Search Location" autocomplete ng-model="pylonsNew.pylon.location" class="form-control" geometry="pylonsNew.pylon.geometry" choose-listing="pylonsNew.chooseListing(place)">
+    </div>
   </div>
-</div>
 
-<add-map chosen-location="pylonsNew.pylon.geometry"></add-map>
+  <add-map chosen-location="pylonsNew.pylon.geometry"></add-map>
 
-<div class="col-md-6">
-  <form name="pylonsNew.newForm" ng-submit="pylonsNew.create()" class="form-group">
-    <div>
-      <label for="name">Name</label>
-      <input ng-model="pylonsNew.pylon.name" type="text" name="name" value="" required readonly="readonly" class="form-control">
-    </div>
-    <div>
-      <label>Category</label>
-      <select ng-model="pylonsNew.pylon.category_id">
-        <option disabled selected value="">Please select...</option>
-        <option ng-repeat="category in pylonsNew.categories" ng-value="{{ category.id }}"> {{ category.name }}</option>
-      </select>
-    </div>
-    <div>
-      <label for="address">Address</label>
-      <input ng-model="pylonsNew.pylon.address" type="text" name="address" value="" required readonly="readonly" class="form-control">
-    </div>
-    <div>
-      <label for="website">Website</label>
-      <input ng-model="pylonsNew.pylon.website" type="text" name="website" value="" required readonly="readonly" class="form-control">
-    </div>
-    <div>
-      <label for="tel">Tel Number</label>
-      <input ng-model="pylonsNew.pylon.tel" type="text" name="tel" value="" required readonly="readonly" class="form-control">
-    </div>
-    <div>
-      <label for="comments">Comments</label>
-      <textarea name="comments" id="comments" required ng-model="pylonsNew.pylon.comment" class="form-control"></textarea>
-    </div>
-    <input type="hidden" ng-model="pylonsNew.pylon.lat" name="lat" value="">
-    <input type="hidden" ng-model="pylonsNew.pylon.lng" name="lng" value="">
-    <button class="authButton">Add</button>
-  </form>
+  <div class="col-md-6">
+    <form name="pylonsNew.newForm" ng-submit="pylonsNew.create()" class="form-group">
+      <div>
+        <label for="name">Name</label>
+        <input ng-model="pylonsNew.pylon.name" type="text" name="name" value="" required readonly="readonly" class="form-control">
+      </div>
+      <div>
+        <label>Category</label>
+        <select ng-model="pylonsNew.pylon.category_id">
+          <option disabled selected value="">Please select...</option>
+          <option ng-repeat="category in pylonsNew.categories" ng-value="{{ category.id }}"> {{ category.name }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="address">Address</label>
+        <input ng-model="pylonsNew.pylon.address" type="text" name="address" value="" required readonly="readonly" class="form-control">
+      </div>
+      <div>
+        <label for="website">Website</label>
+        <input ng-model="pylonsNew.pylon.website" type="text" name="website" value="" required readonly="readonly" class="form-control">
+      </div>
+      <div>
+        <label for="tel">Tel Number</label>
+        <input ng-model="pylonsNew.pylon.tel" type="text" name="tel" value="" required readonly="readonly" class="form-control">
+      </div>
+      <div>
+        <label for="comments">Comments</label>
+        <textarea name="comments" id="comments" required ng-model="pylonsNew.pylon.comment" class="form-control"></textarea>
+      </div>
+      <input type="hidden" ng-model="pylonsNew.pylon.lat" name="lat" value="">
+      <input type="hidden" ng-model="pylonsNew.pylon.lng" name="lng" value="">
+      <button class="authButton">Add</button>
+    </form>
+  </div>
 </div>

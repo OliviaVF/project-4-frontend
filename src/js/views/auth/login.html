@@ -1,4 +1,4 @@
-<div class="login col-md-6">
+<div class="form">
   <form name="auth.loginForm" ng-submit="auth.login()" novalidate class="form-group">
     <div>
       <label>Username</label>
@@ -16,8 +16,14 @@
       </div>
     </div>
 
-    <button class="authButton">Login</button>
+    <div class="loginButton login">
+      <button class="authButton">Login</button>
+    </div>
   </form>
 
-  <button ng-click="auth.authenticate('facebook')" class="authButton">Facebook Login</button>
+  <p>• Or •</p>
+
+  <div class="loginButton">
+    <button ng-click="auth.authenticate('facebook')" class="authButton">Facebook Login</button>
+  </div>
 </div>

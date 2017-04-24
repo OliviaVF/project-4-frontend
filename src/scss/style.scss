@@ -14,6 +14,7 @@ main  {
   margin-top: 25vh;
 }
 
+
 nav {
   position:fixed;
   overflow: hidden;
@@ -27,7 +28,8 @@ nav {
     padding-bottom: 10px;
   }
   .gradient {
-    background: $green;
+    // background: $green;
+    background: linear-gradient(to bottom,#00B598 8%,$green 100%);
     .pageName {
       h1 {
         font-size: 15px;
@@ -79,17 +81,25 @@ nav {
   letter-spacing: 3px;
   border-radius: 0;
   padding: 10px;
+  display: inline-block;
   &:hover {
     color: $green;
     border-color: $green;
+  }
+  &.active {
+    color: $green;
+    border-color: $green;
+  }
+  &:focus {
+    outline:0;
   }
 }
 
 .profilePic {
   margin-top: 5px;
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
   border: 1px solid white;
   background-position: center;
   background-size: cover;
@@ -112,9 +122,209 @@ nav {
   width: 100%;
 }
 
-button {
-  &.active {
-    background-color: pink;
+.login, .register {
+  text-align: center;
+  .form {
+    text-align: left;
+    margin: 0 auto;
+    max-width: 300px;
+    .loginButton {
+      text-align: center;
+    }
+    .login {
+      padding-top: 20px;
+    }
+    p {
+      text-align: center;
+    }
+    input {
+      color: $green;
+      &:hover {
+        color: $green;
+        border-color: $green;
+      }
+      &.active {
+        color: $green;
+        border-color: $green;
+      }
+      &:focus {
+        border-color: $green;
+        outline: none;
+        box-shadow: none;
+      }
+    }
+    .image {
+      display: none;
+    }
+    .image-label {
+      cursor: pointer;
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      position: center;
+      background-color: white;
+      width: 200px;
+      margin-top: 12px;
+      margin-bottom: 20px;
+      border: 1px solid $grey;
+      border-radius: 0;
+      padding: 10px;
+      &:hover {
+        color: $green;
+        border-color: $green;
+      }
+      &.active {
+        color: $green;
+        border-color: $green;
+      }
+      &:focus {
+        outline:0;
+      }
+    }
+  }
+}
+
+.usersIndex {
+  .users {
+    margin: 0 auto;
+    text-align:left;
+    max-width: 59%;
+    .loginButton {
+      text-align: center;
+    }
+    .usersButton {
+      margin: 10px;
+      position: relative;
+    }
+    .search {
+      width: 96.5%;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      padding-left: 10px;
+      &:hover {
+        color: $green;
+        box-shadow: none;
+        border: 1px solid $green;
+      }
+      &.active {
+        color: $green;
+        border-color: $green;
+      }
+      &:focus {
+        border-color: $green;
+        outline: none;
+        box-shadow: none;
+      }
+    }
+    .username {
+      font-size: 20px;
+      text-decoration: none;
+      color: black;
+      &:hover {
+      color: $green;
+      }
+    }
+    .follow {
+      color: black;
+      text-decoration: none;
+      font-size: 15px;
+      position: relative;
+      left: -22px;
+      background-color: white;
+      width: 40px;
+      height: 40px;
+      margin-top: 12px;
+      border: 1px solid $grey;
+      letter-spacing: 3px;
+      border-radius: 20px;
+      padding: 10px;
+      display: inline-block;
+
+      &:hover {
+        color: $green;
+        border-color: $green;
+      }
+      &.active {
+        color: $green;
+        border-color: $green;
+      }
+      &:focus {
+        outline:0;
+      }
+      .fa, .fa-check {
+        color: #544e4e;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.usersShow {
+  .profile {
+    margin: 0 auto;
+    text-align:left;
+    max-width: 59%;
+  }
+  .loginButton {
+    text-align: center;
+  }
+  .usersButton {
+    margin: 10px;
+    position: relative;
+  }
+  .profileName {
+    margin: 0 auto;
+    h2 {
+      text-align: center;
+    }
+  }
+  .picture {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .showPic {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: 1px solid white;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+  select {
+    width: 87%;
+    margin-left: 2%;
+    background-color: white;
+  }
+}
+
+input[type='range'] {
+  appearance: none;
+  background-color: $green;
+  border-radius: 30px;
+  height: 1vh;
+  width: 100%;
+  margin-bottom: 5%;
+  &:focus {
+    outline: none;
+  }
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: white;
+  border: 2px solid $green;
+  border-radius: 30px;
+  height: 2.5vh;
+  width: 2.5vh;
+}
+
+.pylonsNew {
+  .new {
+    margin: 0 auto;
+    text-align:left;
+    max-width: 59%;
   }
 }
 
@@ -128,4 +338,8 @@ button {
 
 .allPylon {
   border: 2px solid red;
+}
+
+@media only screen and (max-width: 950px) {
+
 }

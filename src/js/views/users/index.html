@@ -1,51 +1,76 @@
-<button ng-click="usersIndex.getAllUsers()" ng-class="{ 'active': usersIndex.filter === 'allUsers' }">All Users</button>
-<button ng-click="usersIndex.getFollowing()" ng-class="{ 'active': usersIndex.filter === 'following' }">Following</button>
-<button ng-click="usersIndex.getFollowers()" ng-class="{ 'active': usersIndex.filter === 'followers' }">Followers</button>
+<div class="users">
+  <div class="loginButton">
+    <button class="authButton usersButton" ng-click="usersIndex.getAllUsers()" ng-class="{ 'active': usersIndex.filter === 'allUsers' }">All Users</button>
+    <button class="authButton usersButton" ng-click="usersIndex.getFollowing()" ng-class="{ 'active': usersIndex.filter === 'following' }">Following</button>
+    <button class="authButton usersButton" ng-click="usersIndex.getFollowers()" ng-class="{ 'active': usersIndex.filter === 'followers' }">Followers</button>
+  </div>
 
-<div ng-if="usersIndex.followerRender" class="row">
+  <div ng-if="usersIndex.followerRender">
 
-  <div>
-    <div>
-      <input type="text" placeholder="Search" ng-model="usersIndex.q">
+    <div  class="loginButton">
+      <div>
+        <input class="search" type="text" placeholder="Search Users" ng-model="usersIndex.q">
+      </div>
+    </div>
+
+    <div ng-repeat="follower in usersIndex.currentUser.followers | filter:{ username: usersIndex.q }">
+      <div class="col-md-2">
+        <div class="profilePic" ng-style="{'background-image': 'url(' + follower.image_src + ')'}" ui-sref="usersShow({ id: follower.id })"></div>
+      </div>
+      <div class="col-md-9">
+        <a class="username" ui-sref="usersShow({ id: follower.id })"><h2 class="username">{{ follower.username }}</h2></a>
+      </div>
+
+      <div ng-if="main.isAuthenticated()" class="col-md-1">
+        <button class="follow" ng-click="usersIndex.toggleFollowing(follower)" ng-if="!usersIndex.isFollowing(follower)"><i class="fa fa-check" aria-hidden="true"></i></button>
+        <button class="follow" ng-click="usersIndex.toggleFollowing(follower)" ng-if="usersIndex.isFollowing(follower)"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </div>
     </div>
   </div>
 
-  <div ng-repeat="follower in usersIndex.currentUser.followers | filter:{ username: usersIndex.q }" class="col-md-6">
-    <div class="profilePic" ng-style="{'background-image': 'url(' + follower.image_src + ')'}" ui-sref="usersShow({ id: follower.id })"></div>
-    <a ui-sref="usersShow({ id: follower.id })"><h2>{{ follower.username }}</h2></a>
-  </div>
-</div>
 
+  <div ng-if="usersIndex.followingRender">
 
-<div ng-if="usersIndex.followingRender" class="row">
+    <div  class="loginButton">
+      <div>
+        <input class="search" type="text" placeholder="Search Users" ng-model="usersIndex.q">
+      </div>
+    </div>
 
-  <div>
-    <div>
-      <input type="text" placeholder="Search" ng-model="usersIndex.q">
+    <div ng-repeat="following in usersIndex.currentUser.following | filter:{ username: usersIndex.q }">
+      <div class="col-md-2">
+        <div class="profilePic" ng-style="{'background-image': 'url(' + following.image_src + ')'}" ui-sref="usersShow({ id: following.id })"></div>
+      </div>
+      <div class="col-md-9">
+        <a class="username" ui-sref="usersShow({ id: following.id })"><h2 class="username">{{ following.username }}</h2></a>
+      </div>
+      <div ng-if="main.isAuthenticated()" class="col-md-1">
+        <button class="follow" ng-click="usersIndex.toggleFollowing(following)" ng-if="!usersIndex.isFollowing(following)"><i class="fa fa-check" aria-hidden="true"></i></button>
+        <button class="follow" ng-click="usersIndex.toggleFollowing(following)" ng-if="usersIndex.isFollowing(following)"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </div>
     </div>
   </div>
 
-  <div ng-repeat="following in usersIndex.currentUser.following | filter:{ username: usersIndex.q }" class="col-md-6">
-    <div class="profilePic" ng-style="{'background-image': 'url(' + following.image_src + ')'}" ui-sref="usersShow({ id: following.id })"></div>
-    <a ui-sref="usersShow({ id: following.id })"><h2>{{ following.username }}</h2></a>
-  </div>
-</div>
+  <div ng-if="usersIndex.allUsersRender">
 
-<div ng-if="usersIndex.allUsersRender" class="row">
-
-  <div>
-    <div>
-      <input type="text" placeholder="Search" ng-model="usersIndex.q">
+    <div  class="loginButton">
+      <div>
+        <input class="search" type="text" placeholder="Search Users" ng-model="usersIndex.q">
+      </div>
     </div>
-  </div>
 
-  <div ng-repeat="user in usersIndex.all | filter:{ username: usersIndex.q }" class="col-md-6">
-    <div class="profilePic" ng-style="{'background-image': 'url(' + user.image_src + ')'}" ui-sref="usersShow({ id: user.id })"></div>
-    <a ui-sref="usersShow({ id: user.id })"><h2>{{ user.username }}</h2></a>
+    <div ng-repeat="user in usersIndex.all | filter:{ username: usersIndex.q }">
+      <div class="col-md-2">
+        <div class="profilePic" ng-style="{'background-image': 'url(' + user.image_src + ')'}" ui-sref="usersShow({ id: user.id })"></div>
+      </div>
+      <div class="col-md-9">
+        <a class="username" ui-sref="usersShow({ id: user.id })"><h2 class="username">{{ user.username }}</h2></a>
+      </div>
 
-    <div ng-if="main.isAuthenticated()">
-      <button ng-click="usersIndex.toggleFollowing(user)" ng-if="!usersIndex.isFollowing(user)">Follow</button>
-      <button ng-click="usersIndex.toggleFollowing(user)" ng-if="usersIndex.isFollowing(user)">Unfollow</button>
+      <div ng-if="main.isAuthenticated()" class="col-md-1">
+        <button class="follow" ng-click="usersIndex.toggleFollowing(user)" ng-if="!usersIndex.isFollowing(user)"><i class="fa fa-check" aria-hidden="true"></i></button>
+        <button class="follow" ng-click="usersIndex.toggleFollowing(user)" ng-if="usersIndex.isFollowing(user)"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </div>
     </div>
   </div>
 </div>

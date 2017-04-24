@@ -25,8 +25,12 @@ function UsersIndexCtrl(User, $auth, $scope, $state) {
     const index = vm.user.follower_ids.indexOf(vm.currentUser.id);
     if (index > -1) {
       vm.user.follower_ids.splice(index,1);
+      // vm.currentUser.following.splice(vm.following_id);
+      // vm.currentUser.followers.splice(vm.follower_id);
     } else {
       vm.user.follower_ids.push(vm.currentUser.id);
+      vm.currentUser.following.push(vm.user);
+      vm.currentUser.followers.push(vm.user);
     }
 
     User.update({ id: vm.user.id, user: vm.user })
@@ -102,7 +106,9 @@ function UsersShowCtrl(User, Pylon, Listing, Category, filterFilter, $stateParam
   }
   vm.delete = usersDelete;
 
-  function deletePylon() {
+  function deletePylon(plon) {
+    console.log(plon);
+    vm.selectedPylon = plon;
     Pylon
       .delete({ id: vm.selectedPylon.id })
       .$promise
