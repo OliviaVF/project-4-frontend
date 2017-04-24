@@ -84,7 +84,6 @@ function profileMap($window, MAP_STYLES) {
         markers.forEach((marker) => {
           marker.setMap(null);
         });
-
         return [];
       }
 
@@ -116,6 +115,7 @@ function profileMap($window, MAP_STYLES) {
         $scope.filteredPylons.forEach((pylon) => {
           let pushed = false;
 
+
           sortedPylons.forEach((pylonArray) => {
 
             if (pylon.listing.id === pylonArray[0].listing.id) {
@@ -133,7 +133,7 @@ function profileMap($window, MAP_STYLES) {
       }
 
       $scope.$watch('filteredPylons', (newVal) => {
-        if(newVal && newVal.length) sortPylons();
+        if(newVal instanceof Array) sortPylons();
       });
 
 

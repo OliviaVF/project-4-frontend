@@ -86,7 +86,7 @@ function autocomplete($window) {
 
     link: function($scope, element, attrs, model) {
       const options = {
-        types: []
+        types: ['establishment']
       };
 
       const autocomplete = new $window.google.maps.places.Autocomplete(element[0], options);

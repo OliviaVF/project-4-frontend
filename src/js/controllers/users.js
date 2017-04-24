@@ -23,10 +23,12 @@ function UsersIndexCtrl(User, $auth, $scope, $state) {
   function toggleFollowing(user) {
     vm.user = user;
     const index = vm.user.follower_ids.indexOf(vm.currentUser.id);
+    const userFollowingIndex = vm.currentUser.following.indexOf(vm.following_id);
+    const userFollowerIndex = vm.currentUser.followers.indexOf(vm.follower_id);
     if (index > -1) {
       vm.user.follower_ids.splice(index,1);
-      // vm.currentUser.following.splice(vm.following_id);
-      // vm.currentUser.followers.splice(vm.follower_id);
+      vm.currentUser.following.splice(userFollowingIndex, 1);
+      vm.currentUser.followers.splice(userFollowerIndex, 1);
     } else {
       vm.user.follower_ids.push(vm.currentUser.id);
       vm.currentUser.following.push(vm.user);
@@ -106,16 +108,17 @@ function UsersShowCtrl(User, Pylon, Listing, Category, filterFilter, $stateParam
   }
   vm.delete = usersDelete;
 
-  function deletePylon(plon) {
-    console.log(plon);
-    vm.selectedPylon = plon;
+  function deletePylon(pylon) {
     Pylon
-      .delete({ id: vm.selectedPylon.id })
+      .delete({ id: pylon.id })
       .$promise
       .then(() => {
-        const index = vm.user.pylon.indexOf(vm.selectedPylon);
-        if(index > -1) vm.user.pylon.splice(index, 1);
-        vm.selectedPylon = null;
+        const userIndex = vm.currentUser.pylons.findIndex(userPylon => userPylon.id === pylon.id);
+        if(userIndex > -1) vm.currentUser.pylons.splice(userIndex, 1);
+        const index = vm.allPylons.findIndex(userPylon => userPylon.id === pylon.id);
+        if(index > -1) vm.allPylons.splice(userIndex, 1);
+        filterPylons();
+        vm.listing = null;
       });
   }
 

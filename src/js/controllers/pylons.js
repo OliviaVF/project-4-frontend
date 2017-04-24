@@ -50,29 +50,33 @@ function PylonsIndexCtrl(Pylon, User, Category, $stateParams, $state, $auth) {
 
   vm.delete = pylonsDelete;
 
-  function enableCommentEditor() {
-    vm.commentEditorEnabled = true;
+  function enableCommentEditor(pylon) {
+    vm.activeComment = pylon.id;
+    if(vm.currentUser.id === pylon.user.id)vm.commentEditorEnabled = true;
     vm.editableComment = vm.comment;
   }
 
   vm.enableCommentEditor = enableCommentEditor;
 
   function disableCommentEditor() {
+    vm.activeComment = null;
     vm.commentEditorEnabled = false;
     vm.editableComment = vm.comment;
   }
 
   vm.disableCommentEditor = disableCommentEditor;
 
-  function enableCategoryEditor() {
+  function enableCategoryEditor(pylon) {
+    vm.active = pylon.id;
     vm.categories = Category.query();
-    vm.categoryEditorEnabled = true;
+    if(vm.currentUser.id === pylon.user.id)vm.categoryEditorEnabled = true;
     vm.editableCategory = vm.category_id;
   }
 
   vm.enableCategoryEditor = enableCategoryEditor;
 
   function disableCategoryEditor() {
+    vm.active = null;
     vm.categories = Category.query();
     vm.categoryEditorEnabled = false;
     vm.editableCategory = vm.category_id;
