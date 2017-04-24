@@ -23,5 +23,8 @@
     "angular-bootstrap": "^2.5.0",
     "angular-animate": "^1.6.4",
     "bootstrap-css-only": "^3.3.7"
+  },
+  "resolutions": {
+    "angular": "^1.5.8"
   }
 }
