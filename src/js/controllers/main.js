@@ -8,7 +8,6 @@ function MainCtrl(User, $rootScope, $state, $auth) {
   vm.isAuthenticated = $auth.isAuthenticated;
 
   $rootScope.$on('error', (e, err) => {
-    console.log('inside error', err);
     vm.stateHasChanged = false;
     vm.message = err.data.message;
     $state.go('login');
@@ -17,8 +16,7 @@ function MainCtrl(User, $rootScope, $state, $auth) {
   $rootScope.$on('$stateChangeSuccess', (e, toState) => {
     if(vm.stateHasChanged) vm.message = null;
     if(!vm.stateHasChanged) vm.stateHasChanged = true;
-
-    if($auth.getPayload() && !vm.user) {
+    if($auth.getPayload()) {
       vm.currentUser = $auth.getPayload();
       vm.user = User.get({ id: vm.currentUser.id });
     }

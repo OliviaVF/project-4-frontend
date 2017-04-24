@@ -264,6 +264,12 @@ nav {
     text-align:left;
     max-width: 59%;
   }
+  .fa {
+    background-color: white;
+    border: none;
+    color: $green;
+    display: inline-block;
+  }
   .loginButton {
     text-align: center;
   }
@@ -290,11 +296,15 @@ nav {
     margin: 0 auto;
   }
   select {
-    width: 84%;
+    width: 75%;
     margin-left: 2%;
     background-color: white;
     font-size: 20px;
     padding:10px;
+  }
+  .commentCat {
+    width: 60%;
+    margin: 0;
   }
   p, label {
     font-size: 20px;
@@ -421,21 +431,21 @@ input[type=range]::-webkit-slider-thumb {
 
 .userPylon {
   color: $green;
-  width: 50%;
+  width: 70%;
   margin: 0 auto;
   padding: 10px;
 }
 
 .followingPylon {
   color: #5d88e3;
-  width: 50%;
+  width: 70%;
   margin: 0 auto;
   padding: 10px;
 }
 
 .allPylon {
   color: black;
-  width: 50%;
+  width: 70%;
   margin: 0 auto;
   padding: 10px;
 }

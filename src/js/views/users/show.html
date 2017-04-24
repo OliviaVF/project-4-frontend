@@ -29,16 +29,39 @@
 
   <profile-map filtered-pylons="usersShow.filteredPylons" user-pylons="usersShow.user.pylons" selected-listing="usersShow.selectedListing" ng-if="usersShow.user.$resolved"></profile-map>
   <h1>{{ usersShow.listing.name }}</h1>
-  <p class="listing"><a href="{{ usersShow.listing.website }}" target="_blank" ng-if="usersShow.selectedListing" class="listing">Website</a></p>
+  <p class="listing"><a href="{{ usersShow.listing.website }}" target="_blank" ng-if="usersShow.selectedListing" class="listing">{{ usersShow.listing.website }}</a></p>
   <p class="listing"><a href="tel:{{ usersShow.listing.tel }}" class="listing">{{ usersShow.listing.tel }}</a></p>
   <div class="row" ng-show="usersShow.listing">
     <div class="infoData" ng-repeat="pylon in usersShow.listing.pylons" ng-class="usersShow.determineUser(pylon)" ng-if="usersShow.isPylonVisible(pylon)">
       <hr />
       <p ng-if="main.currentUser.id === pylon.user.id"><span>User: </span>{{ pylon.user.username }}</p>
       <a class="userLink" ui-sref="usersShow({ id: pylon.user.id })" ng-if="main.currentUser.id !== pylon.user.id"><p><span>User: </span> {{ pylon.user.username}}</p></a>
-      <p><span>Category: </span> {{ pylon.category.name }}</p>
-      <p><span>Comment: </span> {{ pylon.comment }}</p>
+      <p class="commentCat" ng-hide="usersShow.categoryEditorEnabled"><span>Category: </span> {{ pylon.category.name }}</p>
+
+      <div ng-show="usersShow.categoryEditorEnabled && main.currentUser.id === pylon.user.id && usersShow.active === pylon.id">
+        <select ng-model="pylon.category_id" ng-show="usersShow.categoryEditorEnabled">
+          <option disabled selected value="">Please select...</option>
+          <option ng-repeat="category in usersShow.categories" ng-value="{{ category.id }}"> {{ category.name }}</option>
+        </select>
+        <button class="fa" ng-click="usersShow.categorySave(pylon)"><i class="fa fa-check" aria-hidden="true"></i></button>
+        or
+        <button class="fa" ng-click="usersShow.disableCategoryEditor()"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </div>
+
+      <button class="fa" ng-click="usersShow.enableCategoryEditor(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" ng-hide="usersShow.categoryEditorEnabled"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
+      <p ng-hide="usersShow.commentEditorEnabled" class="commentCat"><span>Comment: </span> {{ pylon.comment }}</p>
       <div class="loginButton">
+
+        <div ng-show="usersShow.commentEditorEnabled && main.currentUser.id === pylon.user.id && usersShow.activeComment === pylon.id">
+          <input ng-model="pylon.comment" ng-show="usersShow.commentEditorEnabled">
+          <button class="fa" ng-click="usersShow.commentSave(pylon)"><i class="fa fa-check" aria-hidden="true"></i></button>
+          or
+          <button class="fa" ng-click="usersShow.disableCommentEditor()"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+
+        <button class="fa" ng-click="usersShow.enableCommentEditor(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" ng-hide="usersShow.commentEditorEnabled"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
         <button ng-click="usersShow.deletePylon(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="authButton selectedButton">Delete</button>
 
         <button ng-click="usersShow.recreate(pylon, 'pin')" ng-if="main.isAuthenticated() && main.currentUser.id !== pylon.user.id" class="authButton selectedButton">Pin</button>

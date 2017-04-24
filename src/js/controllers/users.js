@@ -98,15 +98,12 @@ function UsersShowCtrl(User, Pylon, Listing, Category, filterFilter, $stateParam
   });
 
   function usersDelete() {
-    console.log(vm.user);
     User
     .remove({ id: vm.user.id })
     .$promise
     .then(() => {
-      console.log('fire');
       $auth.logout();
       $state.go('register');
-      console.log('done');
     });
   }
   vm.delete = usersDelete;
@@ -248,15 +245,71 @@ function UsersShowCtrl(User, Pylon, Listing, Category, filterFilter, $stateParam
     Pylon
       .save({ pylon: newPylon })
       .$promise
-      .then(() =>{
-         $state.go('usersShow', { id: vm.currentUser.id });
-         vm.currentUser.pylons.push(newPylon);
-         getMyPylons();
-        console.log(vm.currentUser);
-       });
+      .then(() => $state.reload());
   }
 
   vm.recreate = recreate;
+
+  function enableCommentEditor(pylon) {
+    vm.activeComment = pylon.id;
+    if(vm.currentUser.id === pylon.user.id)vm.commentEditorEnabled = true;
+    vm.editableComment = vm.comment;
+  }
+
+  vm.enableCommentEditor = enableCommentEditor;
+
+  function disableCommentEditor() {
+    vm.activeComment = null;
+    vm.commentEditorEnabled = false;
+    vm.editableComment = vm.comment;
+  }
+
+  vm.disableCommentEditor = disableCommentEditor;
+
+  function enableCategoryEditor(pylon) {
+    vm.active = pylon.id;
+    vm.categories = Category.query();
+    if(vm.currentUser.id === pylon.user.id)vm.categoryEditorEnabled = true;
+    vm.editableCategory = vm.category_id;
+  }
+
+  vm.enableCategoryEditor = enableCategoryEditor;
+
+  function disableCategoryEditor() {
+    vm.active = null;
+    vm.categories = Category.query();
+    vm.categoryEditorEnabled = false;
+    vm.editableCategory = vm.category_id;
+  }
+
+  vm.disableCategoryEditor = disableCategoryEditor;
+
+  vm.commentSave = commentSave;
+  function commentSave(pylon) {
+    vm.pylon = pylon;
+    vm.pylon.category_id = vm.pylon.category.id;
+    Pylon
+      .update({id: vm.pylon.id, pylon: vm.pylon });
+      vm.commentEditorEnabled = false;
+  }
+
+  vm.categorySave = categorySave;
+  function categorySave(pylon) {
+    vm.pylon = pylon;
+    const thisCategory = vm.pylon.category_id;
+    Pylon
+     .update({id: vm.pylon.id, pylon: vm.pylon })
+     .$promise
+     .then(()=>{
+      const filtered = vm.categories.filter((category)=>{
+         return category.id === thisCategory;
+       });
+
+       vm.pylon.category.name = filtered[0].name;
+       console.log(vm.pylon.category.name);
+       vm.categoryEditorEnabled = false;
+     });
+  }
 }
 
 UsersEditCtrl.$inject = ['User', '$stateParams', '$state'];
