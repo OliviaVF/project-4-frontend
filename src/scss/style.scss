@@ -14,7 +14,6 @@ main  {
   margin-top: 25vh;
 }
 
-
 nav {
   position:fixed;
   overflow: hidden;
@@ -112,12 +111,12 @@ nav {
   display: inline-block;
 }
 
-.feedColumn {
-  height: 50vh;
-  margin-bottom: 10vh;
+.feedColumn, .pylon-map {
+  height: 40vh;
+  margin-bottom: 60px;
 }
 
-.add-map, .pylon-map, .profile-map {
+.add-map, .profile-map {
   height: 50vh;
   width: 100%;
 }
@@ -325,6 +324,54 @@ input[type=range]::-webkit-slider-thumb {
     margin: 0 auto;
     text-align:left;
     max-width: 59%;
+  }
+  select {
+    width: 88%;
+    margin-left: 2%;
+    background-color: white;
+    margin-top: 20px;
+  }
+  input {
+    color: $green;
+    &:hover {
+      color: $green;
+      border-color: $green;
+    }
+    &.active {
+      color: $green;
+      border-color: $green;
+    }
+    &:focus {
+      border-color: $green;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+  .loginButton {
+    text-align: center;
+  }
+}
+
+.pylonsIndex {
+  .feed {
+    margin: 0 auto;
+    text-align:left;
+    max-width: 59%;
+  }
+  .name{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .fa {
+    background-color: white;
+    border: none;
+    color: $green;
+  }
+  .profName {
+    margin-left: 5%;
+  }
+  .authButton {
+    
   }
 }
 

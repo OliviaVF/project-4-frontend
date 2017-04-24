@@ -7,8 +7,8 @@
 
   <add-map chosen-location="pylonsNew.pylon.geometry"></add-map>
 
-  <div class="col-md-6">
-    <form name="pylonsNew.newForm" ng-submit="pylonsNew.create()" class="form-group">
+  <div>
+    <form name="pylonsNew.newForm" ng-submit="pylonsNew.create()">
       <div>
         <label for="name">Name</label>
         <input ng-model="pylonsNew.pylon.name" type="text" name="name" value="" required readonly="readonly" class="form-control">
@@ -38,7 +38,9 @@
       </div>
       <input type="hidden" ng-model="pylonsNew.pylon.lat" name="lat" value="">
       <input type="hidden" ng-model="pylonsNew.pylon.lng" name="lng" value="">
-      <button class="authButton">Add</button>
+      <div class="loginButton">
+        <button class="authButton">Add</button>
+      </div>
     </form>
   </div>
 </div>
