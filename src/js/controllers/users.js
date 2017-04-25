@@ -19,21 +19,32 @@ function UsersIndexCtrl(User, $auth, $scope, $state) {
     return user.follower_ids.includes(vm.currentUser.id);
   }
   vm.isFollowing = isFollowing;
-
   function toggleFollowing(user) {
+    console.log(vm.currentUser);
+
     vm.user = user;
+
     const index = vm.user.follower_ids.indexOf(vm.currentUser.id);
-    const userFollowingIndex = vm.currentUser.following.indexOf(vm.following_id);
-    const userFollowerIndex = vm.currentUser.followers.indexOf(vm.follower_id);
+    const userFollowingIndex = vm.currentUser.following.findIndex(following => user.id === following.id);
+    const userFollowerIndex = vm.currentUser.followers.findIndex(follower => user.id === follower.id);
+
     if (index > -1) {
       vm.user.follower_ids.splice(index,1);
-      vm.currentUser.following.splice(userFollowingIndex, 1);
-      vm.currentUser.followers.splice(userFollowerIndex, 1);
     } else {
       vm.user.follower_ids.push(vm.currentUser.id);
-      vm.currentUser.following.push(vm.user);
-      vm.currentUser.followers.push(vm.user);
     }
+
+    if(userFollowingIndex > -1) {
+      vm.currentUser.following.splice(userFollowingIndex, 1);
+    } else {
+      vm.currentUser.following.push(vm.user);
+    }
+
+    // if(userFollowerIndex > -1) {
+    //   vm.currentUser.following.splice(userFollowingIndex, 1);
+    // } else {
+    //   vm.currentUser.following.push(vm.user);
+    // }
 
     User.update({ id: vm.user.id, user: vm.user })
       .$promise

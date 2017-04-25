@@ -1,6 +1,7 @@
 $green: #00a289;
 $grey: #D3D3D3;
 $yellow: #fce650;
+$red: #ef4c59;
 
 body {
   font-family: 'Josefin Sans', sans-serif;
@@ -12,6 +13,24 @@ body {
 
 main  {
   margin-top: 25vh;
+}
+
+.mainMessage {
+  margin-top: 18vh;
+  background: $red;
+  padding: 5px;
+  text-align: center;
+  .container {
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+.message {
+  background: $red;
+  padding: 5px;
+  text-align: center;
 }
 
 nav {
@@ -121,7 +140,7 @@ nav {
   width: 100%;
 }
 
-.login, .register {
+.login, .register, .usersEdit {
   text-align: center;
   .form {
     text-align: left;
@@ -303,8 +322,8 @@ nav {
     padding:10px;
   }
   .commentCat {
-    width: 60%;
     margin: 0;
+    display: inline-block;
   }
   p, label {
     font-size: 20px;
@@ -323,6 +342,9 @@ nav {
       color: $green;
       text-decoration: none
     }
+  }
+  input {
+    width: 78%;
   }
 }
 

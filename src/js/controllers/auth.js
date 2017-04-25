@@ -10,7 +10,7 @@ function AuthCtrl(User, $auth, $state) {
     if (vm.registerForm.$valid) {
       $auth.signup(vm.user)
       .then(() => $state.go('login'));
-    }  
+    }
   }
 
   vm.register = register;
@@ -18,7 +18,7 @@ function AuthCtrl(User, $auth, $state) {
   function login() {
     if (vm.loginForm.$valid) {
       $auth.login(vm.credentials)
-      .then(() => $state.go('usersIndex'));
+      .then(() => $state.go('pylonsNew'));
     }
   }
 
@@ -26,7 +26,7 @@ function AuthCtrl(User, $auth, $state) {
 
   function authenticate(provider) {
     $auth.authenticate(provider)
-      .then(() => $state.go('usersIndex'));
+      .then(() => $state.go('pylonsNew'));
   }
 
   vm.authenticate = authenticate;

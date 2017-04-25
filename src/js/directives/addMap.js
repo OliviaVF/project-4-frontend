@@ -17,7 +17,6 @@ function addMap($window, MAP_STYLES) {
 
      const map = new $window.google.maps.Map(element[0], {
        zoom: 12,
-       center: {lat: 51.515559, lng: -0.071746},
        scrollwheel: false,
        styles: MAP_STYLES
      });
@@ -38,13 +37,14 @@ function addMap($window, MAP_STYLES) {
 
        if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition((position) => {
-           var pos = {
-             lat: position.coords.latitude,
-             lng: position.coords.longitude
-           };
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
 
-           locationMarker.setPosition(pos);
-           map.setCenter(pos);
+          locationMarker.setPosition(pos);
+          map.setCenter(pos);
+
          }, function() {
            handleLocationError(true, locationMarker, map.getCenter());
          });
@@ -65,6 +65,7 @@ function addMap($window, MAP_STYLES) {
         if($scope.chosenLocation && $scope.chosenLocation.lat && $scope.chosenLocation.lng) {
           pylonMarker.setPosition($scope.chosenLocation);
           map.setCenter($scope.chosenLocation);
+          console.log($scope.chosenLocation);
         }
       });
 

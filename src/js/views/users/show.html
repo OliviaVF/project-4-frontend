@@ -49,9 +49,8 @@
       </div>
 
       <button class="fa" ng-click="usersShow.enableCategoryEditor(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" ng-hide="usersShow.categoryEditorEnabled"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-
+      <br>
       <p ng-hide="usersShow.commentEditorEnabled" class="commentCat"><span>Comment: </span> {{ pylon.comment }}</p>
-      <div class="loginButton">
 
         <div ng-show="usersShow.commentEditorEnabled && main.currentUser.id === pylon.user.id && usersShow.activeComment === pylon.id">
           <input ng-model="pylon.comment" ng-show="usersShow.commentEditorEnabled">
@@ -62,6 +61,7 @@
 
         <button class="fa" ng-click="usersShow.enableCommentEditor(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" ng-hide="usersShow.commentEditorEnabled"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 
+      <div class="loginButton">
         <button ng-click="usersShow.deletePylon(pylon)" ng-if="main.isAuthenticated() && main.currentUser.id === pylon.user.id" class="authButton selectedButton">Delete</button>
 
         <button ng-click="usersShow.recreate(pylon, 'pin')" ng-if="main.isAuthenticated() && main.currentUser.id !== pylon.user.id" class="authButton selectedButton">Pin</button>

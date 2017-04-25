@@ -1,24 +1,24 @@
-<div class="row">
-  <div class="col-md-6">
-    <form ng-submit="usersEdit.update()">
-      <div class="form-group">
-        <label for="base64">Image</label>
-        <input type="file" base64 name="base64" id="base64" ng-model="usersEdit.user.base64">
-      </div>
-      <div>
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" ng-model="usersEdit.user.name">
-      </div>
-      <div>
-        <label for="name">Username</label>
-        <input type="text" id="username" name="username" ng-model="usersEdit.user.username">
-      </div>
-      <div>
-        <label for="name">Email</label>
-        <input type="text" id="email" name="email" ng-model="usersEdit.user.email">
-      </div>
+<div class="form">
+  <form ng-submit="usersEdit.update()">
+    <div class="loginButton">
+      <label class="image-label" for="base64">Image</label>
+      <input type="file" class="image" base64 name="base64" id="base64" ng-model="usersEdit.user.base64">
+    </div>
+    <div>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" ng-model="usersEdit.user.name" class="form-control">
+    </div>
+    <div>
+      <label for="name">Username</label>
+      <input type="text" id="username" name="username" ng-model="usersEdit.user.username" class="form-control">
+    </div>
+    <div>
+      <label for="name">Email</label>
+      <input type="text" id="email" name="email" ng-model="usersEdit.user.email" class="form-control">
+    </div>
 
-      <button>Update</button>
-    </form>
-  </div>
+    <div class="loginButton login">
+      <button class="authButton">Update</button>
+    </div>
+  </form>
 </div>
