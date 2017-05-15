@@ -1,64 +1,51 @@
-### Using this Angular Gulp Setup
+# AccommoData
 
-To get setup with the starter-code, you first need to run:
+##GA WDI London - Project 4(Final Project)
 
-```sh
-$ bower install && gulp install
-```
+###Sharing Recommendations
 
-## How is gulp setup?
+#####About
 
-Rather than trying to manage one giant `gulpfile.js` that is file responsible for creating multiple tasks, each task has been broken out into its own file and placed in a directory `tasks`. Any files in that directory get automatically required in the gulpfile using the `require-dir` npm package.
+Pylon 2.0 has a full stack RESTful frontend, and uses Rails API for the backend. A reccommendations site, pivoting on map functionality. User's choose their community and can easily store and share their recommendations. 
 
-To add a new task, simply add a new task file that directory.
+#####[View it here!](https://radiant-bastion-75576.herokuapp.com/)
 
-/tasks/default.js specifies the default set of tasks to run
-when you run `gulp`.
+![](./public/images/home.png)
 
-Configuration options are stored in the `package.json` file.
+![](./public/images/users.png)
 
-When deploying, ensure that a `postinstall` script has been added to
-your package.json, e.g.
+#####How it Works
 
-```json
-"postinstall": "bower install && gulp deploy"
-```
+Once registered and logged in, users can add reccommendations to their map. These are then also shared on a public feed, however only users that follow them can see their submissions. If a user owns a reccommendation they can edit it's comments and category. Otherwise they can pin a reccommendation to their map from the feed, or pin *and* repost it to the feed. User's select their community by choosing who they follow so they only see submissions from those they trust.
 
-This setup expects that there is a bower.json file with at least ONE package
-installed. This will created a bower_components directory after
-the postinstall script has run.
+![](./public/images/feed.png)
 
-When deploying, this setup expects that the NODE_ENV is set to `production`.
-Also that the NPM_CONFIG_PRODUCTION is set to `false`. Then you can also set the API_URL to be the correct URL for your deployed app. This will automatically replace `http://localhost:4000` to be the correct url.
+From the profile page users can filter by which pylons they see (theirs, their friends, or all user Pylons), and by category. If more than one user as submitted the same recommendation this is shown by a number on the map marker. When clicked on, a marker displays information about that place (name, address, telephone number, and website) as well as any comments users have made (again, filtered by relationship to user).
 
-You can do this by running:
+![](./public/images/profile.png)
 
-```bash
-$ heroku config:set NODE_ENV=production
-$ heroku config:set NPM_CONFIG_PRODUCTION=false
+#####Build
 
-# An example url
-$ heroku config:set API_URL=https://project-on-heroku.herokuapp.com/
-```
+* JavaScript, Express, Node.js, AngularJS, HTML5, CSS, SASS, Bootstrap were used to create the frontend application.
+* Ruby, Ruby on Rails and PostgreSQL database in the backend.
+* Pictures are base64 encoded and stored using the AWS S3 service.
+* Authentication uses JWT with Satellizer and BCrypt.
+* The Google Web Font 'PJosefin Sans' has been used to style the application.
 
-### Bower overrides
+#####Future Additions
 
-Sometimes, you might want to `override` the `main` file(s) for a specific Bower component. You can do this directly inside the `bower.json` file like this:
+I would like to change it so that on a user's profile instead of seeing 'All Pylons', i.e. all Pylons ever pinned, they can see Pylons of those they don't follow but who are connected to those that they do-a kind of mutual friends relationship. I would also like to work on the way information is displayed on marker click. 
 
-```json
-"overrides": {
-  "bootstrap": {
-    "main": [
-      "dist/css/bootstrap.css",
-      "dist/js/bootstrap.js",
-      "dist/fonts/*"
-    ]
-  },
-  "font-awesome": {
-    "main": [
-      "css/font-awesome.css",
-      "fonts/*"
-    ]
-  }
-},
-```
+#####Problems & Challenges
+
+Building the following relationships, and manipulating data based on those was certainly the greatest challenge. I do not like some of the user experience decisions I had to go with when up against the clock, so I will certainly revisit that.
+
+
+
+
+
+
+
+
+
+
