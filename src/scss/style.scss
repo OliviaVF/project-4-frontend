@@ -154,9 +154,6 @@ nav {
     p {
       text-align: center;
     }
-    .or {
-      margin-top: 20px;
-    }
     input {
       color: $green;
       &:hover {
@@ -203,6 +200,10 @@ nav {
       }
     }
   }
+}
+
+.or {
+  margin-top: 20px;
 }
 
 .usersIndex {
